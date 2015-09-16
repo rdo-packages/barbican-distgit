@@ -4,8 +4,8 @@
 %{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
-%global release_name juno
-%global release_version 2014.2
+%global release_name kilo
+%global release_version 2015.1
 #global release_number 2
 
 # We optionally support both release_number and milestone
@@ -23,8 +23,8 @@
 %{!?release_version: %define release_version %{release_name}}
 
 Name:    openstack-barbican
-Version: 2014.2
-Release: 6%{?version_milestone}%{?dist}
+Version: XXX
+Release: XXX
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -35,9 +35,7 @@ Source0: https://launchpad.net/barbican/%{release_name}/%{release_version}/+down
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
-%if %{release_name} != juno
 Source3: openstack-barbican-keystone-listener.service
-%endif
 
 BuildArch: noarch
 BuildRequires: python2-devel
@@ -116,7 +114,6 @@ This package contains scripts to start a barbican worker
 on a worker node.
 
 
-%if "%{release_name}" != "juno"
 %package -n openstack-barbican-keystone-listener
 Summary: Barbican Keystone Listener daemon
 Requires: python-barbican
@@ -124,10 +121,10 @@ Requires: python-barbican
 %description -n openstack-barbican-keystone-listener
 This package contains scripts to start a barbican keystone
 listener daemon.
-%endif
+
 
 %prep
-%setup -q -n barbican-%{version}%{?version_milestone}
+%setup -q -n barbican-%{upstream_version}
 
 rm -rf barbican.egg-info
 
@@ -148,16 +145,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
 mkdir -p %{buildroot}%{_bindir}
 
-install -m 644 etc/barbican/policy.json %{buildroot}%{_sysconfdir}/barbican/
-install -m 644 etc/barbican/barbican* %{buildroot}%{_sysconfdir}/barbican/
+
+install -m 644 etc/barbican/*.{json,ini,conf} %{buildroot}%{_sysconfdir}/barbican/
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
-# Generally its not very clean to put scripts with their language extension into
-# the bin directories. Upstream has a bug to fix this, we are doing it manually for now
-# discussed here https://bugs.launchpad.net/barbican/+bug/1454587
-# and fixed in https://review.openstack.org/#/c/193208/
-for command in %{buildroot}%{_bindir}/barbican*.py; do
-  mv $command %{buildroot}%{_bindir}/$(basename $command .py)
-done
 
 # Remove the bash script since its more dev focused
 rm -f %{buildroot}%{_bindir}/barbican.sh
@@ -167,16 +157,12 @@ rm -f %{buildroot}%{_bindir}/barbican.sh
 mkdir -p %{buildroot}%{_sysconfdir}/init
 install -m 644 etc/init/barbican-api.conf %{buildroot}%{_sysconfdir}/init
 install -m 644 etc/init/barbican-worker.conf %{buildroot}%{_sysconfdir}/init
-%if "%{release_name}" != "juno"
 install -m 644 etc/init/barbican-keystone-listener.conf %{buildroot}%{_sysconfdir}/init
-%endif
 %else
 # systemd services
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/openstack-barbican-api.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-barbican-worker.service
-%if "%{release_name}" != "juno"
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-barbican-keystone-listener.service
-%endif
 %endif
 
 # install log rotation
@@ -206,17 +192,18 @@ exit 0
 %files -n python-barbican
 %doc LICENSE
 %defattr(-,barbican,barbican)
+%{_bindir}/barbican-retry
+%{_bindir}/pkcs11-kek-rewrap
 %{python2_sitelib}/barbican
-%{python2_sitelib}/barbican-%{version}-py?.?.egg-info
+%{python2_sitelib}/barbican-*-py?.?.egg-info
 %dir %{_localstatedir}/lib/barbican
 
 %files -n openstack-barbican-api
-%config(noreplace) %{_sysconfdir}/barbican/barbican-admin-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
-%config(noreplace) %{_sysconfdir}/barbican/barbican-api.conf
+%config(noreplace) %{_sysconfdir}/barbican/barbican.conf
+%config(noreplace) %{_sysconfdir}/barbican/barbican-functional.conf
 %config(noreplace) %{_sysconfdir}/barbican/policy.json
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
-%config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-admin.ini
 %if 0%{?el6}
 %config(noreplace) %{_sysconfdir}/init/barbican-api.conf
 %else
@@ -235,7 +222,6 @@ exit 0
 %{_unitdir}/openstack-barbican-worker.service
 %endif
 
-%if "%{release_name}" != "juno"
 %files -n openstack-barbican-keystone-listener
 %doc LICENSE
 %attr(0755,root,root) %{_bindir}/barbican-keystone-listener
@@ -243,7 +229,6 @@ exit 0
 %config(noreplace) %{_sysconfdir}/init/barbican-keystone-listener.conf
 %else
 %{_unitdir}/openstack-barbican-keystone-listener.service
-%endif
 %endif
 
 %post -n openstack-barbican-api
@@ -264,7 +249,6 @@ exit 0
 /bin/systemctl daemon-reload
 %endif
 
-%if "%{release_name}" != "juno"
 %post -n openstack-barbican-keystone-listener
 # ensure that init system recognizes the service
 %if 0%{?el6}
@@ -272,7 +256,6 @@ exit 0
 %else
 %systemd_post openstack-barbican-keystone-listener.service
 /bin/systemctl daemon-reload
-%endif
 %endif
 
 %preun -n openstack-barbican-api
@@ -295,7 +278,6 @@ fi
 %systemd_preun openstack-barbican-worker.service
 %endif
 
-%if "%{release_name}" != "juno"
 %preun -n openstack-barbican-keystone-listener
 %if 0%{?el6}
 if [ $1 -eq 0 ] ; then
@@ -305,56 +287,20 @@ fi
 %else
 %systemd_preun openstack-barbican-keystone-listener.service
 %endif
-%endif
 
-%postun -n openstack-barbican-api
 %if 0%{?rhel} != 6
+%postun -n openstack-barbican-api
 # Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-api.service
-%endif
 
 %postun -n openstack-barbican-worker
-%if 0%{?rhel} != 6
 # Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-worker.service
-%endif
 
-%if "%{release_name}" != "juno"
 %postun -n openstack-barbican-keystone-listener
-%if 0%{?rhel} != 6
 # Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-keystone-listender.service
 %endif
-%endif
+
 
 %changelog
-* Wed Jul 22 2015 Greg Swift <greg.swift@rackspace.net> - 2014.2-6
-- Better implementation of removing .py extension from bins, that works
-
-* Mon Jul 06 2015 Greg Swift <greg.swift@rackspace.net> - 2014.2-5
-- Update to remove .py extension from bins, and ensure the service files match
-- Move logrotate file to shared base package
-
-* Tue Jun 30 2015 Michael McCune <msm@redhat.com> - 2014.2-4
-- removing pbr runtime replacement patch
-- removing patch for barbican.sh as this file is not used for runtime
-- adding vassals to installed files
-- changing python file inclusion to specifically mention barbican files
-
-* Tue Apr 07 2015 Greg Swift <greg.swift@rackspace.com> - 2014.2-3
-- Created -api subpackage
-- Made worker require -api rather than conflict with it due to shared config
-- Other small cleanup for review request
-
-* Wed Apr 01 2015 Greg Swift <greg.swift@rackspace.com> - 2014.2-2
-- use versioned python macros
-- wrap patches in a juno specific conditional to deprecate them
-- drop %clean and %defattr
-- change URL to openstack github rather than cloudkeep github
-
-* Mon Feb 09 2015 Greg Swift <greg.swift@rackspace.com> - 2014.2-1
-- Revamped for fedora packaging request
-
-* Thu Nov 13 2014 Abhishek Koneru <akoneru@redhat.com>
-- Initial spec file for building openstack-barbican packages -
-  openstack-barbican, python-barbican, openstack-barbican-worker.
