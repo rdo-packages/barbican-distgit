@@ -4,7 +4,7 @@
 %{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
-%global release_name kilo
+%global release_name liberty
 %global release_version 2015.1
 #global release_number 2
 
@@ -36,8 +36,10 @@ Source0: https://launchpad.net/barbican/%{release_name}/%{release_version}/+down
 Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
+Source4: gunicorn-config.py
 
 BuildArch: noarch
+BuildRequires: crudini
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
 BuildRequires: python-oslo-config
@@ -45,8 +47,7 @@ BuildRequires: python-oslo-messaging
 BuildRequires: python-pbr
 
 Requires(pre): shadow-utils
-Requires: uwsgi
-Requires: uwsgi-plugin-python
+Requires: python-gunicorn
 Requires: python-barbican
 %if 0%{?el6}
 Requires(post): chkconfig
@@ -77,9 +78,15 @@ Requires: python-eventlet
 Requires: python-iso8601
 Requires: python-jsonschema
 Requires: python-kombu
+
+%if 0%{?fedora} >= 23
+Requires: python-ldap3
+%endif
+
 Requires: python-netaddr
 Requires: python-oslo-config
 Requires: python-oslo-messaging
+Requires: python-oslo-policy
 Requires: python-paste
 Requires: python-paste-deploy
 Requires: python-pbr
@@ -144,10 +151,15 @@ mkdir -p %{buildroot}%{_sysconfdir}/barbican
 mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
 mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}/run/barbican
 
 
 install -m 644 etc/barbican/*.{json,ini,conf} %{buildroot}%{_sysconfdir}/barbican/
+install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
+
+# Use crudini to modify barbican-api-paste.ini for gunicorn
+crudini --set %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini server:main use egg:gunicorn#main
 
 # Remove the bash script since its more dev focused
 rm -f %{buildroot}%{_bindir}/barbican.sh
@@ -185,8 +197,9 @@ exit 0
 
 %files -n openstack-barbican
 %doc LICENSE
-%dir %{_sysconfdir}/barbican
-%dir %{_localstatedir}/log/barbican
+%dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
+%dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
+%dir %attr(-,barbican,barbican) /run/barbican
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
@@ -198,13 +211,16 @@ exit 0
 %defattr(-,barbican,barbican)
 %{python2_sitelib}/barbican
 %{python2_sitelib}/barbican-*-py?.?.egg-info
-%dir %{_localstatedir}/lib/barbican
+%dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
 %files -n openstack-barbican-api
 %config(noreplace) %{_sysconfdir}/barbican/barbican-admin-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-functional.conf
+%config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
+%exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
+%exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
 %config(noreplace) %{_sysconfdir}/barbican/policy.json
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-admin.ini
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
@@ -217,8 +233,8 @@ exit 0
 %files -n openstack-barbican-worker
 %doc LICENSE
 %defattr(-,root,root)
-%dir %{_sysconfdir}/barbican
-%dir %{_localstatedir}/log/barbican
+%dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
+%dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
 %attr(0755,root,root) %{_bindir}/barbican-worker
 %if 0%{?el6}
 %config(noreplace) %{_sysconfdir}/init/barbican-worker.conf
