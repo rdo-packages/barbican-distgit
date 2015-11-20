@@ -11,6 +11,7 @@ ExecStart=/usr/bin/gunicorn --pid /run/barbican/pid -c /etc/barbican/gunicorn-co
 ExecReload=/usr/bin/kill -s HUP $MAINPID
 ExecStop=/usr/bin/kill -s TERM $MAINPID
 StandardError=syslog
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

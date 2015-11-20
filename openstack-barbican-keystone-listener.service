@@ -7,6 +7,7 @@ Type=simple
 ExecStart=/usr/bin/barbican-keystone-listener
 User=barbican
 Group=barbican
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
