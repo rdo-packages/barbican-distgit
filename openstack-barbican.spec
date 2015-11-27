@@ -2,8 +2,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: XXX
-Release: XXX
+Version: 1.0.0
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 License: ASL 2.0
@@ -185,7 +185,6 @@ exit 0
 %defattr(-,barbican,barbican)
 %{_bindir}/barbican-retry
 %{_bindir}/pkcs11-kek-rewrap
-%{_bindir}/pkcs11-key-generation
 %{python2_sitelib}/barbican
 %{python2_sitelib}/barbican-*-py?.?.egg-info
 %dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
@@ -299,3 +298,6 @@ fi
 
 
 %changelog
+* Fri Nov 27 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 1.0.0-1
+- Initial release
+
