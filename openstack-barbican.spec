@@ -1,36 +1,14 @@
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%{!?__python2:        %global __python2 /usr/bin/python2}
-%{!?python2_sitelib:  %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-%endif
-
 %global release_name liberty
-%global release_version 2015.1
-#global release_number 2
-
-# We optionally support both release_number and milestone
-# as definiable build paramters.  This is useful for non-stable
-# building.
-# release_number: used for primary milestone release candidates
-#   If populated will auto populate the milestone macro and
-# milestone: Used for primary milestone release candidates and
-#   for incremental development builds.
-%{?release_number: %define milestone 0b%{release_number}}
-%{?milestone: %define version_milestone .%{milestone}}
-
-# Using the above we generate the macro for the Source URL
-%{?release_number: %define release_version %{release_name}-%{release_number}}
-%{!?release_version: %define release_version %{release_name}}
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: XXX
 Release: XXX
 Summary: OpenStack Barbican Key Manager
 
-Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
-Source0: https://launchpad.net/barbican/%{release_name}/%{release_version}/+download/barbican-%{version}%{?version_milestone}.tar.gz
+Source0: https://launchpad.net/barbican/%{release_name}/%{version}/+download/barbican-%{upstream_version}.tar.gz
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
