@@ -59,14 +59,16 @@ Requires(preun): systemd
 Requires(preun): systemd
 BuildRequires: systemd
 %endif
+Requires: openstack-barbican-api
+Requires: openstack-barbican-worker
 
 %description -n openstack-barbican
 Openstack Barbican provides a ReST API for securely storing,
 provisioning and managing secrets. It is aimed at being
 useful for all environments, including large ephemeral Clouds.
 Clients can generate various types of secrets like symmetric
-and asymmetric keys, passphrases and binary data.
-
+and asymmetric keys, passphrases and binary data.  This package
+installs both the API and worker packages.
 
 %package -n python-barbican
 Summary: All python modules of Barbican
@@ -104,7 +106,7 @@ worker(openstack-barbican-worker) packages.
 
 %package -n openstack-barbican-api
 Summary: Barbican Key Manager API daemon
-Requires: python-barbican
+Requires: openstack-barbican-common
 
 %description -n openstack-barbican-api
 This package contains scripts to start a barbican api instance.
@@ -112,9 +114,7 @@ This package contains scripts to start a barbican api instance.
 
 %package -n openstack-barbican-worker
 Summary: Barbican Key Manager worker daemon
-Requires: python-barbican
-# Todo for now we rely on the -api package because of a shared config file
-Requires: openstack-barbican-api
+Requires: openstack-barbican-common
 
 %description -n openstack-barbican-worker
 This package contains scripts to start a barbican worker
@@ -129,6 +129,13 @@ Requires: python-barbican
 This package contains scripts to start a barbican keystone
 listener daemon.
 
+%package -n openstack-barbican-common
+Summary: Common Files for the API and worker packages
+Requires: python-barbican
+
+%description -n openstack-barbican-common
+This packge contains files that are common to the API and
+worker packages.
 
 %prep
 %setup -q -n barbican-%{upstream_version}
@@ -151,7 +158,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/barbican
 mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}/run/barbican
+mkdir -p %{buildroot}%{_localstatedir}/run/barbican
 
 
 install -m 644 etc/barbican/*.{json,ini,conf} %{buildroot}%{_sysconfdir}/barbican/
@@ -182,7 +189,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 install -m644 etc/logrotate.d/barbican-api %{buildroot}%{_sysconfdir}/logrotate.d/barbican-api
 
 
-%pre
+%pre -n openstack-barbican-common
 # Add the 'barbican' user
 getent group barbican >/dev/null || groupadd -r barbican
 getent passwd barbican >/dev/null || \
@@ -190,27 +197,28 @@ getent passwd barbican >/dev/null || \
     -c "Barbican Key Manager user account." barbican
 exit 0
 
-
 %files -n openstack-barbican
+%doc LICENSE
+
+%files -n openstack-barbican-common
 %doc LICENSE
 %dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
-%dir %attr(-,barbican,barbican) /run/barbican
+%dir %attr(-,barbican,barbican) %{_localstatedir}/run/barbican
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
+%{_bindir}/barbican-retry
+%{_bindir}/pkcs11-kek-rewrap
+%{_bindir}/pkcs11-key-generation
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
 # good in the long run anyway, so this is likely the best package for it
 %config(noreplace) %{_sysconfdir}/logrotate.d/barbican-api
+%dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
 %files -n python-barbican
 %doc LICENSE
-%defattr(-,barbican,barbican)
-%{_bindir}/barbican-retry
-%{_bindir}/pkcs11-kek-rewrap
-%{_bindir}/pkcs11-key-generation
 %{python2_sitelib}/barbican
 %{python2_sitelib}/barbican-*-py?.?.egg-info
-%dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
 %files -n openstack-barbican-api
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
@@ -230,8 +238,6 @@ exit 0
 %files -n openstack-barbican-worker
 %doc LICENSE
 %defattr(-,root,root)
-%dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
-%dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
 %attr(0755,root,root) %{_bindir}/barbican-worker
 %if 0%{?el6}
 %config(noreplace) %{_sysconfdir}/init/barbican-worker.conf
