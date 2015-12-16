@@ -47,7 +47,6 @@ BuildRequires: python-oslo-messaging
 BuildRequires: python-pbr
 
 Requires(pre): shadow-utils
-Requires: python-gunicorn
 Requires: python-barbican
 %if 0%{?el6}
 Requires(post): chkconfig
@@ -107,6 +106,7 @@ worker(openstack-barbican-worker) packages.
 %package -n openstack-barbican-api
 Summary: Barbican Key Manager API daemon
 Requires: openstack-barbican-common
+Requires: python-gunicorn
 
 %description -n openstack-barbican-api
 This package contains scripts to start a barbican api instance.
