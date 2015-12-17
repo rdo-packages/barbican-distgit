@@ -79,11 +79,7 @@ Requires: python-eventlet
 Requires: python-iso8601
 Requires: python-jsonschema
 Requires: python-kombu
-
-%if 0%{?fedora} >= 23
 Requires: python-ldap3
-%endif
-
 Requires: python-netaddr
 Requires: python-oslo-config
 Requires: python-oslo-messaging
