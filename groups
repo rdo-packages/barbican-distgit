@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-e4b7b8ee67d7ed4de408bcfa30712d95204f1704	barbican-distgit-ptl
+# UUID          Group Name
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
+fe720eb512f465a74e62b79eed946d9f7678fd2c       	barbican-distgit-core
+e4b7b8ee67d7ed4de408bcfa30712d95204f1704        	barbican-distgit-ptl
+global:Registered-Users		Registered Users
