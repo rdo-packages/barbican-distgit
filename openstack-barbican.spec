@@ -204,7 +204,6 @@ exit 0
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
 %{_bindir}/barbican-retry
 %{_bindir}/pkcs11-kek-rewrap
-%{_bindir}/pkcs11-key-generation
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
 # good in the long run anyway, so this is likely the best package for it
