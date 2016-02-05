@@ -217,6 +217,7 @@ exit 0
 %{python2_sitelib}/barbican-*-py?.?.egg-info
 
 %files -n openstack-barbican-api
+%config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/barbican.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-functional.conf
