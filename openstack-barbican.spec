@@ -202,6 +202,7 @@ exit 0
 %dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/run/barbican
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
+%{_bindir}/barbican-manage
 %{_bindir}/barbican-retry
 %{_bindir}/pkcs11-kek-rewrap
 %{_bindir}/pkcs11-key-generation
