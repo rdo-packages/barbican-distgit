@@ -133,6 +133,13 @@ Requires: python-barbican
 This packge contains files that are common to the API and
 worker packages.
 
+%package -n python-barbican-tests
+Summary:        Barbican tests
+Requires:       python-barbican = %{version}-%{release}
+
+%description -n python-barbican-tests
+This package contains the Barbican test files.
+
 %prep
 %setup -q -n barbican-%{upstream_version}
 
@@ -216,6 +223,11 @@ exit 0
 %doc LICENSE
 %{python2_sitelib}/barbican
 %{python2_sitelib}/barbican-*-py?.?.egg-info
+%exclude %{python2_sitelib}/barbican/tests
+
+%files -n python-barbican-tests
+%license LICENSE
+%{python2_sitelib}/barbican/tests
 
 %files -n openstack-barbican-api
 %config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
