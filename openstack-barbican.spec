@@ -164,6 +164,7 @@ mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_localstatedir}/run/barbican
 
 install -m 644 barbican/api/app.wsgi %{buildroot}/%{python2_sitelib}/barbican/api/app.wsgi
+install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic.ini
 install -m 644 etc/barbican/*.{json,ini,conf} %{buildroot}%{_sysconfdir}/barbican/
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
