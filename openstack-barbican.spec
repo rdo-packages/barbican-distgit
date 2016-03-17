@@ -1,26 +1,6 @@
-%if 0%{?rhel} && 0%{?rhel} <= 6
-%{!?__python2:        %global __python2 /usr/bin/python2}
-%{!?python2_sitelib:  %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-%endif
+%global service barbican
 
-%global release_name liberty
-%global release_version 2015.1
-#global release_number 2
-
-# We optionally support both release_number and milestone
-# as definiable build paramters.  This is useful for non-stable
-# building.
-# release_number: used for primary milestone release candidates
-#   If populated will auto populate the milestone macro and
-# milestone: Used for primary milestone release candidates and
-#   for incremental development builds.
-%{?release_number: %define milestone 0b%{release_number}}
-%{?milestone: %define version_milestone .%{milestone}}
-
-# Using the above we generate the macro for the Source URL
-%{?release_number: %define release_version %{release_name}-%{release_number}}
-%{!?release_version: %define release_version %{release_name}}
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: XXX
@@ -30,7 +10,7 @@ Summary: OpenStack Barbican Key Manager
 Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
-Source0: https://launchpad.net/barbican/%{release_name}/%{release_version}/+download/barbican-%{version}%{?version_milestone}.tar.gz
+Source0: http://tarballs.openstack.org/%{service}/%{upstream_version}.tar.gz
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
@@ -48,16 +28,11 @@ BuildRequires: python-pbr
 
 Requires(pre): shadow-utils
 Requires: python-barbican
-%if 0%{?el6}
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
-%else
 Requires(post): systemd
 Requires(preun): systemd
 Requires(preun): systemd
 BuildRequires: systemd
-%endif
+
 Requires: openstack-barbican-api
 Requires: openstack-barbican-worker
 
@@ -177,18 +152,10 @@ crudini --set %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini server:
 # Remove the bash script since its more dev focused
 rm -f %{buildroot}%{_bindir}/barbican.sh
 
-%if 0%{?el6}
-# upstart services
-mkdir -p %{buildroot}%{_sysconfdir}/init
-install -m 644 etc/init/barbican-api.conf %{buildroot}%{_sysconfdir}/init
-install -m 644 etc/init/barbican-worker.conf %{buildroot}%{_sysconfdir}/init
-install -m 644 etc/init/barbican-keystone-listener.conf %{buildroot}%{_sysconfdir}/init
-%else
 # systemd services
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/openstack-barbican-api.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-barbican-worker.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-barbican-keystone-listener.service
-%endif
 
 # install log rotation
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
@@ -242,101 +209,51 @@ exit 0
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
 %config(noreplace) %{_sysconfdir}/barbican/policy.json
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
-%if 0%{?el6}
-%config(noreplace) %{_sysconfdir}/init/barbican-api.conf
-%else
 %{_unitdir}/openstack-barbican-api.service
-%endif
 
 %files -n openstack-barbican-worker
 %doc LICENSE
 %defattr(-,root,root)
 %attr(0755,root,root) %{_bindir}/barbican-worker
-%if 0%{?el6}
-%config(noreplace) %{_sysconfdir}/init/barbican-worker.conf
-%else
 %{_unitdir}/openstack-barbican-worker.service
-%endif
 
 %files -n openstack-barbican-keystone-listener
 %doc LICENSE
 %attr(0755,root,root) %{_bindir}/barbican-keystone-listener
-%if 0%{?el6}
-%config(noreplace) %{_sysconfdir}/init/barbican-keystone-listener.conf
-%else
 %{_unitdir}/openstack-barbican-keystone-listener.service
-%endif
 
 %post -n openstack-barbican-api
 # ensure that init system recognizes the service
-%if 0%{?el6}
-/sbin/initctl reload-configuration
-%else
 %systemd_post openstack-barbican-api.service
 /bin/systemctl daemon-reload
-%endif
 
 %post -n openstack-barbican-worker
 # ensure that init system recognizes the service
-%if 0%{?el6}
-/sbin/initctl reload-configuration
-%else
 %systemd_post openstack-barbican-worker.service
 /bin/systemctl daemon-reload
-%endif
 
 %post -n openstack-barbican-keystone-listener
 # ensure that init system recognizes the service
-%if 0%{?el6}
-/sbin/initctl reload-configuration
-%else
 %systemd_post openstack-barbican-keystone-listener.service
 /bin/systemctl daemon-reload
-%endif
 
 %preun -n openstack-barbican-api
-%if 0%{?el6}
-if [ $1 -eq 0 ] ; then
-    # This is package removal, not upgrade
-    /sbin/stop barbican-api >/dev/null 2>&1 || :
-fi
-%else
 %systemd_preun openstack-barbican-api.service
-%endif
 
 %preun -n openstack-barbican-worker
-%if 0%{?el6}
-if [ $1 -eq 0 ] ; then
-    # This is package removal, not upgrade
-    /sbin/stop barbican-worker >/dev/null 2>&1 || :
-fi
-%else
 %systemd_preun openstack-barbican-worker.service
-%endif
 
 %preun -n openstack-barbican-keystone-listener
-%if 0%{?el6}
-if [ $1 -eq 0 ] ; then
-    # This is package removal, not upgrade
-    /sbin/stop barbican-keystone-listener >/dev/null 2>&1 || :
-fi
-%else
 %systemd_preun openstack-barbican-keystone-listener.service
-%endif
 
-%if 0%{?rhel} != 6
 %postun -n openstack-barbican-api
-# Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-api.service
 
 %postun -n openstack-barbican-worker
-# Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-worker.service
 
 %postun -n openstack-barbican-keystone-listener
-# Restarting on EL6 is left as a task to the admin
 %systemd_postun_with_restart openstack-barbican-keystone-listender.service
-%endif
 
 
 %changelog
