@@ -1,10 +1,11 @@
+%define milestone .0rc1
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: XXX
-Release: XXX
+Version: 2.0.0
+Release: 0.1%{?milestone}%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -257,3 +258,5 @@ exit 0
 
 
 %changelog
+* Thu Mar 24 2016 RDO <rdo-list@redhat.com> 2.0.0-0.1.0rc1
+- RC1 Rebuild for Mitaka RC1 rc1
