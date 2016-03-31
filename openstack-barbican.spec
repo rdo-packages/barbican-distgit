@@ -131,7 +131,7 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %{__python2} setup.py build
 
 %install
-PBR_VERSION=%{version}%{?version_milestone} %{__python2} setup.py install --skip-build --root %{buildroot}
+%{__python2} setup.py install --skip-build --root %{buildroot}
 mkdir -p %{buildroot}%{_sysconfdir}/barbican
 mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
