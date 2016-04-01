@@ -1,17 +1,21 @@
-%define milestone .0rc1
+%define milestone .0rc2
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: 2.0.0
-Release: 0.1%{?milestone}%{?dist}
+Release: 0.2%{?milestone}%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
 Source0: http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+
+#
+# patches_base=2.0.0.0rc2
+#
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
@@ -258,5 +262,8 @@ exit 0
 
 
 %changelog
+* Sat Apr 02 2016 Haikel Guemar <hguemar@fedoraproject.org> 2.0.0-0.2.0rc1
+- Update to 2.0.0.0rc2
+
 * Thu Mar 24 2016 RDO <rdo-list@redhat.com> 2.0.0-0.1.0rc1
 - RC1 Rebuild for Mitaka RC1 rc1
