@@ -1,11 +1,10 @@
-%define milestone .0rc2
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: 2.0.0
-Release: 0.2%{?milestone}%{?dist}
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -271,6 +270,9 @@ exit 0
 
 
 %changelog
+* Thu Apr  7 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-1
+- Upstream 2.0.0
+
 * Sat Apr 02 2016 Haikel Guemar <hguemar@fedoraproject.org> 2.0.0-0.2.0rc1
 - Update to 2.0.0.0rc2
 
