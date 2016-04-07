@@ -22,9 +22,9 @@ BuildArch: noarch
 BuildRequires: crudini
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
-BuildRequires: python-oslo-config
-BuildRequires: python-oslo-messaging
-BuildRequires: python-pbr
+BuildRequires: python-oslo-config > 2:3.7.0
+BuildRequires: python-oslo-messaging >= 4.0.0
+BuildRequires: python-pbr >= 1.6
 
 Requires(pre): shadow-utils
 Requires: python-barbican
@@ -46,27 +46,36 @@ installs both the API and worker packages.
 
 %package -n python-barbican
 Summary: All python modules of Barbican
-Requires: python-alembic
-Requires: python-babel
-Requires: python-crypto
-Requires: python-cryptography
+Requires: python-alembic >= 0.8.0
+Requires: python-babel >= 1.3
+Requires: python-crypto >= 2.6
+Requires: python-cryptography >= 1.0
 Requires: python-eventlet
 Requires: python-iso8601
 Requires: python-jsonschema
+Requires: python-keystonemiddleware >= 4.0.0
 Requires: python-kombu
 Requires: python-ldap3
 Requires: python-netaddr
-Requires: python-oslo-config
-Requires: python-oslo-messaging
-Requires: python-oslo-policy
+Requires: python-oslo-concurrency >= 3.5.0
+Requires: python-oslo-config >= 2:3.7.0
+Requires: python-oslo-context >= 0.2.0
+Requires: python-oslo-i18n >= 2.1.0
+Requires: python-oslo-log >= 1.14.0
+Requires: python-oslo-messaging >= 4.0.0
+Requires: python-oslo-middleware >= 3.0.0
+Requires: python-oslo-policy >= 0.5.0
+Requires: python-oslo-serialization >= 1.10.0
+Requires: python-oslo-service >= 1.0.0
+Requires: python-oslo-utils >= 3.5.0
 Requires: python-paste
-Requires: python-paste-deploy
-Requires: python-pbr
-Requires: python-pecan
-Requires: python-six
-Requires: python-sqlalchemy
-Requires: python-stevedore
-Requires: python-webob
+Requires: python-paste-deploy >= 1.5.0
+Requires: python-pbr >= 1.6
+Requires: python-pecan >= 1.0.0
+Requires: python-six >= 1.9.0
+Requires: python-sqlalchemy >= 1.0.10
+Requires: python-stevedore >= 1.5.0
+Requires: python-webob >= 1.2.3
 
 %description -n python-barbican
 This package contains the barbican python library.
