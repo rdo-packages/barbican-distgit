@@ -180,10 +180,9 @@ getent passwd barbican >/dev/null || \
 exit 0
 
 %files -n openstack-barbican
-%doc LICENSE
+%license LICENSE
 
 %files -n openstack-barbican-common
-%doc LICENSE
 %dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/run/barbican
@@ -199,7 +198,7 @@ exit 0
 %dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
 %files -n python-barbican
-%doc LICENSE
+%license LICENSE
 %{python2_sitelib}/barbican
 %{python2_sitelib}/barbican-*-py?.?.egg-info
 %exclude %{python2_sitelib}/barbican/tests
@@ -221,13 +220,11 @@ exit 0
 %{_unitdir}/openstack-barbican-api.service
 
 %files -n openstack-barbican-worker
-%doc LICENSE
 %defattr(-,root,root)
 %attr(0755,root,root) %{_bindir}/barbican-worker
 %{_unitdir}/openstack-barbican-worker.service
 
 %files -n openstack-barbican-keystone-listener
-%doc LICENSE
 %attr(0755,root,root) %{_bindir}/barbican-keystone-listener
 %{_unitdir}/openstack-barbican-keystone-listener.service
 
