@@ -46,11 +46,12 @@ installs both the API and worker packages.
 
 %package -n python-barbican
 Summary: All python modules of Barbican
-Requires: python-alembic >= 0.8.0
-Requires: python-babel >= 1.3
+Requires: python-alembic >= 0.8.4
+Requires: python-babel >= 2.3.4
+Requires: python-cffi
 Requires: python-crypto >= 2.6
 Requires: python-cryptography >= 1.0
-Requires: python-eventlet
+Requires: python-eventlet >= 0.18.2
 Requires: python-iso8601
 Requires: python-jsonschema
 Requires: python-keystonemiddleware >= 4.0.0
@@ -58,23 +59,24 @@ Requires: python-kombu
 Requires: python-ldap3
 Requires: python-netaddr
 Requires: python-oslo-concurrency >= 3.5.0
-Requires: python-oslo-config >= 2:3.7.0
-Requires: python-oslo-context >= 0.2.0
+Requires: python-oslo-config >= 2:3.14.0
+Requires: python-oslo-context >= 2.9.0
 Requires: python-oslo-i18n >= 2.1.0
 Requires: python-oslo-log >= 1.14.0
-Requires: python-oslo-messaging >= 4.0.0
+Requires: python-oslo-messaging >= 5.2.0
 Requires: python-oslo-middleware >= 3.0.0
-Requires: python-oslo-policy >= 0.5.0
+Requires: python-oslo-policy >= 1.9.0
 Requires: python-oslo-serialization >= 1.10.0
-Requires: python-oslo-service >= 1.0.0
-Requires: python-oslo-utils >= 3.5.0
+Requires: python-oslo-service >= 1.10.0
+Requires: python-oslo-utils >= 3.16.0
 Requires: python-paste
 Requires: python-paste-deploy >= 1.5.0
 Requires: python-pbr >= 1.6
 Requires: python-pecan >= 1.0.0
+Requires: python-pycadf >= 1.1.0
 Requires: python-six >= 1.9.0
 Requires: python-sqlalchemy >= 1.0.10
-Requires: python-stevedore >= 1.5.0
+Requires: python-stevedore >= 1.16.0
 Requires: python-webob >= 1.2.3
 
 %description -n python-barbican
