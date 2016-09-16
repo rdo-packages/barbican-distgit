@@ -10,7 +10,7 @@ Summary: OpenStack Barbican Key Manager
 Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
-Source0: http://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
