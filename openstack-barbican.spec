@@ -54,7 +54,7 @@ Requires: python-cryptography >= 1.0
 Requires: python-eventlet >= 0.18.2
 Requires: python-iso8601
 Requires: python-jsonschema
-Requires: python-keystonemiddleware >= 4.0.0
+Requires: python-keystonemiddleware >= 4.12.0
 Requires: python-kombu
 Requires: python-ldap3
 Requires: python-netaddr
@@ -62,22 +62,23 @@ Requires: python-oslo-concurrency >= 3.5.0
 Requires: python-oslo-config >= 2:3.14.0
 Requires: python-oslo-context >= 2.9.0
 Requires: python-oslo-i18n >= 2.1.0
-Requires: python-oslo-log >= 1.14.0
-Requires: python-oslo-messaging >= 5.2.0
+Requires: python-oslo-log >= 3.11.0
+Requires: python-oslo-messaging >= 5.14.0
 Requires: python-oslo-middleware >= 3.0.0
-Requires: python-oslo-policy >= 1.9.0
+Requires: python-oslo-policy >= 1.17.0
 Requires: python-oslo-serialization >= 1.10.0
 Requires: python-oslo-service >= 1.10.0
-Requires: python-oslo-utils >= 3.16.0
+Requires: python-oslo-utils >= 3.18.0
 Requires: python-paste
 Requires: python-paste-deploy >= 1.5.0
-Requires: python-pbr >= 1.6
+Requires: python-pbr >= 1.8
 Requires: python-pecan >= 1.0.0
 Requires: python-pycadf >= 1.1.0
 Requires: python-six >= 1.9.0
 Requires: python-sqlalchemy >= 1.0.10
-Requires: python-stevedore >= 1.16.0
-Requires: python-webob >= 1.2.3
+Requires: python-stevedore >= 1.17.1
+Requires: python-webob >= 1.6.0
+Requires: pyOpenSSL >= 0.14
 
 %description -n python-barbican
 This package contains the barbican python library.
