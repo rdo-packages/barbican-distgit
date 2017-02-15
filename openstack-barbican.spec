@@ -187,7 +187,7 @@ exit 0
 
 %files -n openstack-barbican-common
 %dir %attr(0775,root,barbican) %{_sysconfdir}/barbican
-%dir %attr(-,barbican,barbican) %{_localstatedir}/log/barbican
+%dir %attr(0750,barbican,barbican) %{_localstatedir}/log/barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/run/barbican
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
 %{_bindir}/barbican-manage
