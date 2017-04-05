@@ -141,6 +141,7 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
 %{__python2} setup.py build
+PYTHONPATH=. oslo-config-generator --config-file=etc/oslo-config-generator/barbican.conf
 
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
@@ -155,6 +156,7 @@ install -m 644 barbican/api/app.wsgi %{buildroot}/%{python2_sitelib}/barbican/ap
 install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic.ini
 install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic_migrations/versions/
 install -m 644 etc/barbican/*.{json,ini,conf} %{buildroot}%{_sysconfdir}/barbican/
+install -m 644 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
 
