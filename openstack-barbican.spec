@@ -30,6 +30,7 @@ BuildRequires: python-alembic
 BuildRequires: python-crypto
 BuildRequires: python-pykmip
 BuildRequires: python-oslo-policy
+BuildRequires: python-oslo-db
 BuildRequires: python-keystonemiddleware
 
 Requires(pre): shadow-utils
@@ -67,6 +68,7 @@ Requires: python-netaddr
 Requires: python-oslo-concurrency >= 3.5.0
 Requires: python-oslo-config >= 2:3.14.0
 Requires: python-oslo-context >= 2.9.0
+Requires: python-oslo-db >= 4.10.0
 Requires: python-oslo-i18n >= 2.1.0
 Requires: python-oslo-log >= 3.11.0
 Requires: python-oslo-messaging >= 5.14.0
