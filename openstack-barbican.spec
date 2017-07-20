@@ -221,6 +221,7 @@ exit 0
 %{python2_sitelib}/barbican/tests
 
 %files -n openstack-barbican-api
+%{_bindir}/barbican-wsgi-api
 %config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/barbican.conf
