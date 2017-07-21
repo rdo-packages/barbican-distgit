@@ -276,3 +276,4 @@ exit 0
 
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/barbican/commit/?id=b48f40ec0aa98d17c4af679824f6a72ba905f3b8
