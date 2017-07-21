@@ -231,6 +231,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/barbican/policy.json
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
 %{_unitdir}/openstack-barbican-api.service
+%{_bindir}/barbican-wsgi-api
 
 %files -n openstack-barbican-worker
 %defattr(-,root,root)
