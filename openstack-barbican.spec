@@ -17,6 +17,7 @@ Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
+Source5: openstack-barbican.logrotate
 
 BuildArch: noarch
 BuildRequires: crudini
@@ -181,7 +182,7 @@ install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-barbican-keyst
 
 # install log rotation
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
-install -m644 etc/logrotate.d/barbican-api %{buildroot}%{_sysconfdir}/logrotate.d/barbican-api
+install -m644 %{SOURCE5} %{buildroot}%{_sysconfdir}/logrotate.d/openstack-barbican
 
 
 %pre -n openstack-barbican-common
@@ -207,7 +208,7 @@ exit 0
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
 # good in the long run anyway, so this is likely the best package for it
-%config(noreplace) %{_sysconfdir}/logrotate.d/barbican-api
+%config(noreplace) %{_sysconfdir}/logrotate.d/openstack-barbican
 %dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
 %files -n python-barbican
