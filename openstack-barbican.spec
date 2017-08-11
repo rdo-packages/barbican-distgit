@@ -22,9 +22,9 @@ BuildArch: noarch
 BuildRequires: crudini
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
-BuildRequires: python-oslo-config > 2:3.7.0
-BuildRequires: python-oslo-messaging >= 4.0.0
-BuildRequires: python-pbr >= 1.6
+BuildRequires: python-oslo-config > 2:4.0.0
+BuildRequires: python-oslo-messaging >= 5.24.2
+BuildRequires: python-pbr >= 2.0.0
 BuildRequires: python-pecan
 BuildRequires: python-alembic
 BuildRequires: python-crypto
@@ -53,39 +53,34 @@ installs both the API and worker packages.
 
 %package -n python-barbican
 Summary: All python modules of Barbican
-Requires: python-alembic >= 0.8.4
+Requires: python-alembic >= 0.8.7
 Requires: python-babel >= 2.3.4
 Requires: python-cffi
 Requires: python-crypto >= 2.6
-Requires: python-cryptography >= 1.0
+Requires: python-cryptography >= 1.6
 Requires: python-eventlet >= 0.18.2
-Requires: python-iso8601
 Requires: python-jsonschema
 Requires: python-keystonemiddleware >= 4.12.0
-Requires: python-kombu
 Requires: python-ldap3
-Requires: python-netaddr
-Requires: python-oslo-concurrency >= 3.5.0
-Requires: python-oslo-config >= 2:3.14.0
-Requires: python-oslo-context >= 2.9.0
-Requires: python-oslo-db >= 4.10.0
+Requires: python-oslo-config >= 2:4.0.0
+Requires: python-oslo-context >= 2.14.0
+Requires: python-oslo-db >= 4.24.0
 Requires: python-oslo-i18n >= 2.1.0
-Requires: python-oslo-log >= 3.11.0
-Requires: python-oslo-messaging >= 5.14.0
-Requires: python-oslo-middleware >= 3.0.0
-Requires: python-oslo-policy >= 1.17.0
+Requires: python-oslo-log >= 3.22.0
+Requires: python-oslo-messaging >= 5.24.2
+Requires: python-oslo-middleware >= 3.27.0
+Requires: python-oslo-policy >= 1.23.0
 Requires: python-oslo-serialization >= 1.10.0
 Requires: python-oslo-service >= 1.10.0
-Requires: python-oslo-utils >= 3.18.0
+Requires: python-oslo-utils >= 3.20.0
 Requires: python-paste
 Requires: python-paste-deploy >= 1.5.0
-Requires: python-pbr >= 1.8
+Requires: python-pbr >= 2.0.0
 Requires: python-pecan >= 1.0.0
-Requires: python-pycadf >= 1.1.0
 Requires: python-six >= 1.9.0
 Requires: python-sqlalchemy >= 1.0.10
-Requires: python-stevedore >= 1.17.1
-Requires: python-webob >= 1.6.0
+Requires: python-stevedore >= 1.20.0
+Requires: python-webob >= 1.7.1
 Requires: pyOpenSSL >= 0.14
 
 %description -n python-barbican
