@@ -35,10 +35,8 @@ BuildRequires: python-keystonemiddleware
 
 Requires(pre): shadow-utils
 Requires: python-barbican
-Requires(post): systemd
-Requires(preun): systemd
-Requires(preun): systemd
 BuildRequires: systemd
+%{?systemd_requires}
 
 Requires: openstack-barbican-api
 Requires: openstack-barbican-worker
