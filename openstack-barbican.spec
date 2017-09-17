@@ -32,6 +32,7 @@ BuildRequires: python-pykmip
 BuildRequires: python-oslo-policy
 BuildRequires: python-oslo-db
 BuildRequires: python-keystonemiddleware
+BuildRequires: openstack-macros
 
 Requires(pre): shadow-utils
 Requires: python-barbican
@@ -138,7 +139,7 @@ sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
 
 # Remove the requirements file so that pbr hooks don't add it
 # to distutils requiers_dist config
-rm -rf {test-,}requirements.txt tools/{pip,test}-requires
+%py_req_cleanup
 
 %build
 %{__python2} setup.py build
