@@ -27,7 +27,6 @@ BuildRequires: python-oslo-messaging >= 5.24.2
 BuildRequires: python-pbr >= 2.0.0
 BuildRequires: python-pecan
 BuildRequires: python-alembic
-BuildRequires: python-crypto
 BuildRequires: python-pykmip
 BuildRequires: python-oslo-policy
 BuildRequires: python-oslo-db
@@ -55,7 +54,6 @@ Summary: All python modules of Barbican
 Requires: python-alembic >= 0.8.7
 Requires: python-babel >= 2.3.4
 Requires: python-cffi
-Requires: python-crypto >= 2.6
 Requires: python-cryptography >= 1.6
 Requires: python-eventlet >= 0.18.2
 Requires: python-jsonschema
