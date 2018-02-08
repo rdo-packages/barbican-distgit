@@ -7,6 +7,7 @@ Before=httpd.service
 PIDFile=/run/barbican/pid
 User=barbican
 Group=barbican
+ExecStartPre=/usr/bin/mkdir -p /run/barbican
 ExecStart=/usr/bin/gunicorn --pid /run/barbican/pid -c /etc/barbican/gunicorn-config.py --paste /etc/barbican/barbican-api-paste.ini
 ExecReload=/usr/bin/kill -s HUP $MAINPID
 ExecStop=/usr/bin/kill -s TERM $MAINPID
