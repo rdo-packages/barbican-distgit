@@ -21,17 +21,17 @@ Source4: gunicorn-config.py
 BuildArch: noarch
 BuildRequires: crudini
 BuildRequires: python2-devel
-BuildRequires: python-setuptools
-BuildRequires: python-oslo-config > 2:4.0.0
-BuildRequires: python-oslo-messaging >= 5.24.2
-BuildRequires: python-pbr >= 2.0.0
-BuildRequires: python-pecan
-BuildRequires: python-alembic
-BuildRequires: python-crypto
-BuildRequires: python-pykmip
-BuildRequires: python-oslo-policy
-BuildRequires: python-oslo-db
-BuildRequires: python-keystonemiddleware
+BuildRequires: python2-setuptools
+BuildRequires: python2-oslo-config > 2:4.0.0
+BuildRequires: python2-oslo-messaging >= 5.29.0
+BuildRequires: python2-pbr >= 2.0.0
+BuildRequires: python2-pecan
+BuildRequires: python2-alembic
+BuildRequires: python2-crypto
+BuildRequires: python2-pykmip
+BuildRequires: python2-oslo-policy
+BuildRequires: python2-oslo-db
+BuildRequires: python2-keystonemiddleware
 BuildRequires: openstack-macros
 
 Requires(pre): shadow-utils
@@ -52,35 +52,35 @@ installs both the API and worker packages.
 
 %package -n python-barbican
 Summary: All python modules of Barbican
-Requires: python-alembic >= 0.8.7
-Requires: python-babel >= 2.3.4
+Requires: python2-alembic >= 0.8.10
+Requires: python2-babel >= 2.3.4
 Requires: python-cffi
-Requires: python-crypto >= 2.6
-Requires: python-cryptography >= 1.6
-Requires: python-eventlet >= 0.18.2
-Requires: python-jsonschema
-Requires: python-keystonemiddleware >= 4.12.0
-Requires: python-ldap3
-Requires: python-oslo-config >= 2:4.0.0
-Requires: python-oslo-context >= 2.14.0
-Requires: python-oslo-db >= 4.24.0
-Requires: python-oslo-i18n >= 2.1.0
-Requires: python-oslo-log >= 3.22.0
-Requires: python-oslo-messaging >= 5.24.2
-Requires: python-oslo-middleware >= 3.27.0
-Requires: python-oslo-policy >= 1.23.0
-Requires: python-oslo-serialization >= 1.10.0
-Requires: python-oslo-service >= 1.10.0
-Requires: python-oslo-utils >= 3.20.0
+Requires: python2-crypto >= 2.6
+Requires: python2-cryptography >= 1.7
+Requires: python2-eventlet >= 0.18.2
+Requires: python2-jsonschema
+Requires: python2-keystonemiddleware >= 4.17.0
+Requires: python2-ldap3
+Requires: python2-oslo-config >= 2:5.1.0
+Requires: python2-oslo-context >= 2.19.2
+Requires: python2-oslo-db >= 4.27.0
+Requires: python2-oslo-i18n >= 3.15.3
+Requires: python2-oslo-log >= 3.36.0
+Requires: python2-oslo-messaging >= 5.29.0
+Requires: python2-oslo-middleware >= 3.31.0
+Requires: python2-oslo-policy >= 1.30.0
+Requires: python2-oslo-serialization >= 2.18.0
+Requires: python2-oslo-service >= 1.24.0
+Requires: python2-oslo-utils >= 3.33.0
 Requires: python-paste
 Requires: python-paste-deploy >= 1.5.0
-Requires: python-pbr >= 2.0.0
-Requires: python-pecan >= 1.0.0
-Requires: python-six >= 1.9.0
-Requires: python-sqlalchemy >= 1.0.10
-Requires: python-stevedore >= 1.20.0
+Requires: python2-pbr >= 2.0.0
+Requires: python2-pecan >= 1.0.0
+Requires: python2-six >= 1.10.0
+Requires: python2-sqlalchemy >= 1.0.10
+Requires: python2-stevedore >= 1.20.0
 Requires: python-webob >= 1.7.1
-Requires: pyOpenSSL >= 0.14
+Requires: python2-pyOpenSSL >= 16.2.0
 
 %description -n python-barbican
 This package contains the barbican python library.
