@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aaa499b_fb78a891",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-02-13T05:44:11Z",
+      "side": 1,
+      "message": "1.9 in u-c is not in cbs yet.",
+      "range": {
+        "startLine": 59,
+        "startChar": 34,
+        "endLine": 59,
+        "endChar": 37
+      },
+      "revId": "57f2c4c92f64324094938078ca40fcf1cd050e8d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
