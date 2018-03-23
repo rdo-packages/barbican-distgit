@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_13445272",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2018-03-23T11:09:36Z",
+      "side": 1,
+      "message": "should those be moved vs manual install above?",
+      "revId": "a208f505d0b048183110657d164ab85af21f8eb3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
