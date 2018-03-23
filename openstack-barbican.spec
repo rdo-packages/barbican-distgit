@@ -162,6 +162,9 @@ install -m 644 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barb
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
 
+# Remove installed files under /usr/etc, they are already copied
+rm -rf %{buildroot}/usr/etc/barbican
+
 # Use crudini to modify barbican-api-paste.ini for gunicorn
 crudini --set %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini server:main use egg:gunicorn#main
 
