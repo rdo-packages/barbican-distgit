@@ -3,7 +3,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
@@ -273,6 +273,9 @@ exit 0
 
 
 %changelog
+* Mon Jun 18 2018 RDO <dev@lists.rdoproject.org> 6.0.1-1
+- Update to 6.0.1
+
 * Wed Feb 28 2018 RDO <dev@lists.rdoproject.org> 6.0.0-1
 - Update to 6.0.0
 
