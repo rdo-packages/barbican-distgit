@@ -22,12 +22,11 @@ BuildArch: noarch
 BuildRequires: crudini
 BuildRequires: python2-devel
 BuildRequires: python2-setuptools
-BuildRequires: python2-oslo-config > 2:4.0.0
+BuildRequires: python2-oslo-config >= 2:5.2.0
 BuildRequires: python2-oslo-messaging >= 5.29.0
 BuildRequires: python2-pbr >= 2.0.0
 BuildRequires: python2-pecan
 BuildRequires: python2-alembic
-BuildRequires: python2-crypto
 BuildRequires: python2-pykmip
 BuildRequires: python2-oslo-policy
 BuildRequires: python2-oslo-db
@@ -55,13 +54,12 @@ Summary: All python modules of Barbican
 Requires: python2-alembic >= 0.8.10
 Requires: python2-babel >= 2.3.4
 Requires: python-cffi
-Requires: python2-crypto >= 2.6
-Requires: python2-cryptography >= 1.7
+Requires: python2-cryptography >= 2.1
 Requires: python2-eventlet >= 0.18.2
 Requires: python2-jsonschema
 Requires: python2-keystonemiddleware >= 4.17.0
 Requires: python2-ldap3
-Requires: python2-oslo-config >= 2:5.1.0
+Requires: python2-oslo-config >= 2:5.2.0
 Requires: python2-oslo-context >= 2.19.2
 Requires: python2-oslo-db >= 4.27.0
 Requires: python2-oslo-i18n >= 3.15.3
@@ -80,7 +78,9 @@ Requires: python2-six >= 1.10.0
 Requires: python2-sqlalchemy >= 1.0.10
 Requires: python2-stevedore >= 1.20.0
 Requires: python-webob >= 1.7.1
-Requires: python2-pyOpenSSL >= 16.2.0
+Requires: python2-pyOpenSSL >= 17.1.0
+Requires: python2-castellan >=  0.17
+Requires: python2-oslo-versionedobjects >= 1.31.2
 
 %description -n python-barbican
 This package contains the barbican python library.
