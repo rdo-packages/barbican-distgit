@@ -1,11 +1,10 @@
-%global milestone .0rc1
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: 7.0.0
-Release: 0.1%{?milestone}%{?dist}
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -13,8 +12,6 @@ License: ASL 2.0
 Url:     https://github.com/openstack/barbican
 Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 
-#
-# patches_base=7.0.0.0rc1
 #
 
 # TODO: Submit PR to add these to upstream
@@ -280,6 +277,9 @@ exit 0
 
 
 %changelog
+* Thu Aug 30 2018 RDO <dev@lists.rdoproject.org> 7.0.0-1
+- Update to 7.0.0
+
 * Thu Aug 16 2018 RDO <dev@lists.rdoproject.org> 7.0.0-0.1.0rc1
 - Update to 7.0.0.0rc1
 
