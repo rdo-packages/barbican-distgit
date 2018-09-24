@@ -1,3 +1,14 @@
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
+%endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
@@ -20,21 +31,21 @@ Source4: gunicorn-config.py
 
 BuildArch: noarch
 BuildRequires: crudini
-BuildRequires: python2-devel
-BuildRequires: python2-setuptools
-BuildRequires: python2-oslo-config >= 2:5.2.0
-BuildRequires: python2-oslo-messaging >= 5.29.0
-BuildRequires: python2-pbr >= 2.0.0
-BuildRequires: python2-pecan
-BuildRequires: python2-alembic
-BuildRequires: python2-pykmip
-BuildRequires: python2-oslo-policy
-BuildRequires: python2-oslo-db
-BuildRequires: python2-keystonemiddleware
+BuildRequires: python%{pyver}-devel
+BuildRequires: python%{pyver}-setuptools
+BuildRequires: python%{pyver}-oslo-config >= 2:5.2.0
+BuildRequires: python%{pyver}-oslo-messaging >= 5.29.0
+BuildRequires: python%{pyver}-pbr >= 2.0.0
+BuildRequires: python%{pyver}-pecan
+BuildRequires: python%{pyver}-alembic
+BuildRequires: python%{pyver}-pykmip
+BuildRequires: python%{pyver}-oslo-policy
+BuildRequires: python%{pyver}-oslo-db
+BuildRequires: python%{pyver}-keystonemiddleware
 BuildRequires: openstack-macros
 
 Requires(pre): shadow-utils
-Requires: python-barbican
+Requires: python%{pyver}-barbican
 BuildRequires: systemd
 %{?systemd_requires}
 
@@ -49,40 +60,49 @@ Clients can generate various types of secrets like symmetric
 and asymmetric keys, passphrases and binary data.  This package
 installs both the API and worker packages.
 
-%package -n python-barbican
+%package -n python%{pyver}-barbican
 Summary: All python modules of Barbican
-Requires: python2-alembic >= 0.8.10
-Requires: python2-babel >= 2.3.4
+%{?python_provide:%python_provide python%{pyver}-barbican}
+Requires: python%{pyver}-alembic >= 0.8.10
+Requires: python%{pyver}-babel >= 2.3.4
+Requires: python%{pyver}-cryptography >= 2.1
+Requires: python%{pyver}-eventlet >= 0.18.2
+Requires: python%{pyver}-jsonschema
+Requires: python%{pyver}-keystonemiddleware >= 4.17.0
+Requires: python%{pyver}-ldap3
+Requires: python%{pyver}-oslo-config >= 2:5.2.0
+Requires: python%{pyver}-oslo-context >= 2.19.2
+Requires: python%{pyver}-oslo-db >= 4.27.0
+Requires: python%{pyver}-oslo-i18n >= 3.15.3
+Requires: python%{pyver}-oslo-log >= 3.36.0
+Requires: python%{pyver}-oslo-messaging >= 5.29.0
+Requires: python%{pyver}-oslo-middleware >= 3.31.0
+Requires: python%{pyver}-oslo-policy >= 1.30.0
+Requires: python%{pyver}-oslo-serialization >= 2.18.0
+Requires: python%{pyver}-oslo-service >= 1.24.0
+Requires: python%{pyver}-oslo-utils >= 3.33.0
+Requires: python%{pyver}-pbr >= 2.0.0
+Requires: python%{pyver}-pecan >= 1.0.0
+Requires: python%{pyver}-six >= 1.10.0
+Requires: python%{pyver}-sqlalchemy >= 1.0.10
+Requires: python%{pyver}-stevedore >= 1.20.0
+Requires: python%{pyver}-webob >= 1.7.1
+Requires: python%{pyver}-pyOpenSSL >= 17.1.0
+Requires: python%{pyver}-castellan >=  0.17
+Requires: python%{pyver}-oslo-versionedobjects >= 1.31.2
+
+# Handle python2 exception
+%if %{pyver} == 2
 Requires: python-cffi
-Requires: python2-cryptography >= 2.1
-Requires: python2-eventlet >= 0.18.2
-Requires: python2-jsonschema
-Requires: python2-keystonemiddleware >= 4.17.0
-Requires: python2-ldap3
-Requires: python2-oslo-config >= 2:5.2.0
-Requires: python2-oslo-context >= 2.19.2
-Requires: python2-oslo-db >= 4.27.0
-Requires: python2-oslo-i18n >= 3.15.3
-Requires: python2-oslo-log >= 3.36.0
-Requires: python2-oslo-messaging >= 5.29.0
-Requires: python2-oslo-middleware >= 3.31.0
-Requires: python2-oslo-policy >= 1.30.0
-Requires: python2-oslo-serialization >= 2.18.0
-Requires: python2-oslo-service >= 1.24.0
-Requires: python2-oslo-utils >= 3.33.0
 Requires: python-paste
 Requires: python-paste-deploy >= 1.5.0
-Requires: python2-pbr >= 2.0.0
-Requires: python2-pecan >= 1.0.0
-Requires: python2-six >= 1.10.0
-Requires: python2-sqlalchemy >= 1.0.10
-Requires: python2-stevedore >= 1.20.0
-Requires: python-webob >= 1.7.1
-Requires: python2-pyOpenSSL >= 17.1.0
-Requires: python2-castellan >=  0.17
-Requires: python2-oslo-versionedobjects >= 1.31.2
+%else
+Requires: python%{pyver}-cffi
+Requires: python%{pyver}-paste
+Requires: python%{pyver}-paste-deploy >= 1.5.0
+%endif
 
-%description -n python-barbican
+%description -n python%{pyver}-barbican
 This package contains the barbican python library.
 It is required by both the API(openstack-barbican) and
 worker(openstack-barbican-worker) packages.
@@ -91,7 +111,7 @@ worker(openstack-barbican-worker) packages.
 %package -n openstack-barbican-api
 Summary: Barbican Key Manager API daemon
 Requires: openstack-barbican-common
-Requires: python-gunicorn
+Requires: python%{pyver}-gunicorn
 
 %description -n openstack-barbican-api
 This package contains scripts to start a barbican api instance.
@@ -108,7 +128,7 @@ on a worker node.
 
 %package -n openstack-barbican-keystone-listener
 Summary: Barbican Keystone Listener daemon
-Requires: python-barbican
+Requires: python%{pyver}-barbican
 
 %description -n openstack-barbican-keystone-listener
 This package contains scripts to start a barbican keystone
@@ -116,17 +136,18 @@ listener daemon.
 
 %package -n openstack-barbican-common
 Summary: Common Files for the API and worker packages
-Requires: python-barbican
+Requires: python%{pyver}-barbican
 
 %description -n openstack-barbican-common
 This packge contains files that are common to the API and
 worker packages.
 
-%package -n python-barbican-tests
+%package -n python%{pyver}-barbican-tests
 Summary:        Barbican tests
-Requires:       python-barbican = %{version}-%{release}
+%{?python_provide:%python_provide python%{pyver}-barbican-tests}
+Requires:       python%{pyver}-barbican = %{version}-%{release}
 
-%description -n python-barbican-tests
+%description -n python%{pyver}-barbican-tests
 This package contains the Barbican test files.
 
 %prep
@@ -142,21 +163,21 @@ sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
 %py_req_cleanup
 
 %build
-%{__python2} setup.py build
-PYTHONPATH=. oslo-config-generator --config-file=etc/oslo-config-generator/barbican.conf
+%{pyver_build}
+PYTHONPATH=. oslo-config-generator-%{pyver} --config-file=etc/oslo-config-generator/barbican.conf
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%{pyver_install}
 mkdir -p %{buildroot}%{_sysconfdir}/barbican
 mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_localstatedir}/run/barbican
-mkdir -p %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic_migrations/versions
+mkdir -p %{buildroot}/%{pyver_sitelib}/barbican/model/migration/alembic_migrations/versions
 
-install -m 644 barbican/api/app.wsgi %{buildroot}/%{python2_sitelib}/barbican/api/app.wsgi
-install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic.ini
-install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroot}/%{python2_sitelib}/barbican/model/migration/alembic_migrations/versions/
+install -m 644 barbican/api/app.wsgi %{buildroot}/%{pyver_sitelib}/barbican/api/app.wsgi
+install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{pyver_sitelib}/barbican/model/migration/alembic.ini
+install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroot}/%{pyver_sitelib}/barbican/model/migration/alembic_migrations/versions/
 install -m 644 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
 install -m 644 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
@@ -208,15 +229,15 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/barbican-api
 %dir %attr(-,barbican,barbican) %{_localstatedir}/lib/barbican
 
-%files -n python-barbican
+%files -n python%{pyver}-barbican
 %license LICENSE
-%{python2_sitelib}/barbican
-%{python2_sitelib}/barbican-*-py?.?.egg-info
-%exclude %{python2_sitelib}/barbican/tests
+%{pyver_sitelib}/barbican
+%{pyver_sitelib}/barbican-*-py?.?.egg-info
+%exclude %{pyver_sitelib}/barbican/tests
 
-%files -n python-barbican-tests
+%files -n python%{pyver}-barbican-tests
 %license LICENSE
-%{python2_sitelib}/barbican/tests
+%{pyver_sitelib}/barbican/tests
 
 %files -n openstack-barbican-api
 %config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
