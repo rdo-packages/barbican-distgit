@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_387dca1c",
+        "filename": "openstack-barbican-api.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-09-27T08:53:17Z",
+      "side": 1,
+      "message": "I think this should be RuntimeDirectoryMode",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "d2feeae6c3d1ed253f7921d259936cc4f53aad0e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
