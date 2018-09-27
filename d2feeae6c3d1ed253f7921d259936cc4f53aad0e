@@ -22,6 +22,30 @@
       "revId": "d2feeae6c3d1ed253f7921d259936cc4f53aad0e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_78b0e2dd",
+        "filename": "openstack-barbican-api.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 366
+      },
+      "writtenOn": "2018-09-27T09:23:37Z",
+      "side": 1,
+      "message": "correct, thanks",
+      "parentUuid": "9abe1de1_387dca1c",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "d2feeae6c3d1ed253f7921d259936cc4f53aad0e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
