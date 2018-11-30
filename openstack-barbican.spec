@@ -47,7 +47,11 @@ BuildRequires: openstack-macros
 Requires(pre): shadow-utils
 Requires: python%{pyver}-barbican
 BuildRequires: systemd
+%if 0%{?rhel} && 0%{?rhel} < 8
 %{?systemd_requires}
+%else
+%{?systemd_ordering} # does not exist on EL7
+%endif
 
 Requires: openstack-barbican-api
 Requires: openstack-barbican-worker
