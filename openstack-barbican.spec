@@ -41,6 +41,7 @@ BuildRequires: python%{pyver}-alembic
 BuildRequires: python%{pyver}-pykmip
 BuildRequires: python%{pyver}-oslo-policy
 BuildRequires: python%{pyver}-oslo-db
+BuildRequires: python%{pyver}-oslo-upgradecheck
 BuildRequires: python%{pyver}-keystonemiddleware
 BuildRequires: openstack-macros
 
@@ -80,6 +81,7 @@ Requires: python%{pyver}-oslo-middleware >= 3.31.0
 Requires: python%{pyver}-oslo-policy >= 1.30.0
 Requires: python%{pyver}-oslo-serialization >= 2.18.0
 Requires: python%{pyver}-oslo-service >= 1.24.0
+Requires: python%{pyver}-oslo-upgradecheck >= 0.1.1
 Requires: python%{pyver}-oslo-utils >= 3.33.0
 Requires: python%{pyver}-pbr >= 2.0.0
 Requires: python%{pyver}-pecan >= 1.0.0
@@ -221,6 +223,7 @@ exit 0
 %attr(0755,root,root) %{_bindir}/barbican-db-manage
 %{_bindir}/barbican-manage
 %{_bindir}/barbican-retry
+%{_bindir}/barbican-status
 %{_bindir}/pkcs11-kek-rewrap
 %{_bindir}/pkcs11-key-generation
 # Move the logrotate file to the shared package because everything currently uses
