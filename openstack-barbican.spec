@@ -30,7 +30,6 @@ Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
 
 BuildArch: noarch
-BuildRequires: crudini
 BuildRequires: python%{pyver}-devel
 BuildRequires: python%{pyver}-setuptools
 BuildRequires: python%{pyver}-oslo-config >= 2:5.2.0
@@ -193,8 +192,9 @@ install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassal
 mv %{buildroot}/usr/etc/barbican/* %{buildroot}%{_sysconfdir}/barbican/
 rmdir %{buildroot}/usr/etc/barbican
 
-# Use crudini to modify barbican-api-paste.ini for gunicorn
-crudini --set %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini server:main use egg:gunicorn#main
+# Modify barbican-api-paste.ini for gunicorn
+echo '[server:main]' >> %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini
+echo 'use = egg:gunicorn#main' >> %{buildroot}%{_sysconfdir}/barbican/barbican-api-paste.ini
 
 # Remove the bash script since its more dev focused
 rm -f %{buildroot}%{_bindir}/barbican.sh
