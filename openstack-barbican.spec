@@ -1,3 +1,4 @@
+%global milestone .0rc1
 # Macros for py2/py3 compatibility
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global pyver %{python3_pkgversion}
@@ -14,14 +15,18 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: XXX
-Release: XXX
+Version: 8.0.0
+Release: 0.1%{?milestone}%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
 Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+
+#
+# patches_base=8.0.0.0rc1
+#
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
@@ -303,3 +308,6 @@ exit 0
 
 
 %changelog
+* Fri Mar 22 2019 RDO <dev@lists.rdoproject.org> 8.0.0-0.1.0rc1
+- Update to 8.0.0.0rc1
+
