@@ -93,7 +93,7 @@ Requires: python%{pyver}-sqlalchemy >= 1.0.10
 Requires: python%{pyver}-stevedore >= 1.20.0
 Requires: python%{pyver}-webob >= 1.7.1
 Requires: python%{pyver}-pyOpenSSL >= 17.1.0
-Requires: python%{pyver}-castellan >=  0.17
+Requires: python%{pyver}-castellan >=  1.2.1
 Requires: python%{pyver}-oslo-versionedobjects >= 1.31.2
 
 # Handle python2 exception
