@@ -1,0 +1,11 @@
+- job:
+    name: rdopkg-reqcheck
+    description: dependency check with "rdopkg reqcheck"
+    parent: base
+    run: tests/reqcheck.yaml
+    voting: false
+
+- project:
+    check:
+      jobs:
+        - rdopkg-reqcheck
