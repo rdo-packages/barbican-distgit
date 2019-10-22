@@ -1,0 +1,9 @@
+- job:
+    name: rdopkg-reqcheck
+    description: dependency check with rdopkg reqcheck
+    run: tests/reqcheck.yaml
+
+- project:
+    check:
+      jobs:
+        - rdopkg-reqcheck
