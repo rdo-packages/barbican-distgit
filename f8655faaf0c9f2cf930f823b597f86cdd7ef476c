@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b35a943d_4fd349a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 588
+      },
+      "writtenOn": "2020-05-07T20:07:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand the reasoning behind this?\n\nThe Thales backend for Barbican is optional, so I\u0027m not sure that the nfast user and group need to be created every time barbican-common is installed? I think it does make sense to add the barbican user to the nfast group if the group is already present.\n\nThe Kolla change was added to support the Thales backend in the TripleO container image for Barbican.  In the current implementation, we need to ensure that the nfast GID and UID match both in the controller host and inside the barbican containers, so I disagree that it should not be managed in the Dockerfile.",
+      "range": {
+        "startLine": 12,
+        "startChar": 62,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "f8655faaf0c9f2cf930f823b597f86cdd7ef476c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
