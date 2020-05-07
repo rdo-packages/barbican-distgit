@@ -197,6 +197,12 @@ getent group barbican >/dev/null || groupadd -r barbican
 getent passwd barbican >/dev/null || \
     useradd -r -g barbican -d %{_localstatedir}/lib/barbican -s /sbin/nologin \
     -c "Barbican Key Manager user account." barbican
+# Needed for thales hsm
+getent group nfast >/dev/null || groupadd -r nfast
+getent passwd nfast >/dev/null || \
+    useradd -r -g nfast -M -s /sbin/nologin \
+    -c "Thales HSM user account." nfast && \
+    usermod --append --groups nfast barbican
 exit 0
 
 %files -n openstack-barbican
