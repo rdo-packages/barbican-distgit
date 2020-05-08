@@ -46,6 +46,30 @@
       "revId": "f8655faaf0c9f2cf930f823b597f86cdd7ef476c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be21079e_d288b27e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 588
+      },
+      "writtenOn": "2020-05-08T15:25:31Z",
+      "side": 1,
+      "message": "Ah, I did not know about the effort to get TripleO to build containers without Kolla.\n\nI discussed this change with Ade, and we don\u0027t have a preference on whether the nfast user and group gets added here or in the container, however, the GID and UID MUST match to what THT is setting in the Controller nodes:\n\nhttps://opendev.org/openstack/tripleo-heat-templates/src/branch/master/environments/barbican-backend-pkcs11-thales.yaml#L27-L28\n\nSo, we have two options:\n\n1. Change this patch to use nfast GID 42481 and nfast UID 42481, or\n\n2. Make sure that the new non-Kolla image creates the nfast user with those same UID and GID values before installing this RPM.",
+      "parentUuid": "71e64682_55daa908",
+      "range": {
+        "startLine": 12,
+        "startChar": 62,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "f8655faaf0c9f2cf930f823b597f86cdd7ef476c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
