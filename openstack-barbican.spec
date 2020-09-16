@@ -21,7 +21,7 @@ Source4: gunicorn-config.py
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: python3-oslo-config >= 2:5.2.0
+BuildRequires: python3-oslo-config >= 2:6.4.0
 BuildRequires: python3-oslo-messaging >= 5.29.0
 BuildRequires: python3-pbr >= 2.0.0
 BuildRequires: python3-pecan
@@ -57,7 +57,6 @@ installs both the API and worker packages.
 Summary: All python modules of Barbican
 %{?python_provide:%python_provide python3-barbican}
 Requires: python3-alembic >= 0.8.10
-Requires: python3-babel >= 2.3.4
 Requires: python3-cryptography >= 2.1
 Requires: python3-eventlet >= 0.18.2
 Requires: python3-jsonschema
@@ -70,7 +69,7 @@ Requires: python3-oslo-i18n >= 3.15.3
 Requires: python3-oslo-log >= 3.36.0
 Requires: python3-oslo-messaging >= 5.29.0
 Requires: python3-oslo-middleware >= 3.31.0
-Requires: python3-oslo-policy >= 1.30.0
+Requires: python3-oslo-policy >= 1.33.0
 Requires: python3-oslo-serialization >= 2.18.0
 Requires: python3-oslo-service >= 1.24.0
 Requires: python3-oslo-upgradecheck >= 0.1.1
