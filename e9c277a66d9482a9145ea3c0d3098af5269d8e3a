@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6205852c_d02e5dd3",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-09-17T08:28:29Z",
+      "side": 1,
+      "message": "missing epoch, should be 2:6.4.0",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "e9c277a66d9482a9145ea3c0d3098af5269d8e3a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
