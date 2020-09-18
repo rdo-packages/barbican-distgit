@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c567d25b_5b775dc1",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-09-18T12:56:57Z",
+      "side": 1,
+      "message": "change here as well",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 40
+      },
+      "revId": "b3179d023716e761a462e51f9f79ceac5d545e89",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
