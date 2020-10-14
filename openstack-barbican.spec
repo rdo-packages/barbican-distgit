@@ -1,3 +1,5 @@
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
@@ -17,8 +19,18 @@ Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 
 BuildArch: noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-oslo-config >= 2:6.4.0
@@ -137,6 +149,10 @@ Requires:       python3-barbican = %{version}-%{release}
 This package contains the Barbican test files.
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %setup -q -n barbican-%{upstream_version}
 
 rm -rf barbican.egg-info
