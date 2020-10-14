@@ -1,11 +1,13 @@
 %global milestone .0rc1
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
 Version: 11.0.0
-Release: 0.1%{?milestone}%{?dist}
+Release: 0.2%{?milestone}%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -22,8 +24,18 @@ Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 
 BuildArch: noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-oslo-config >= 2:6.4.0
@@ -142,6 +154,10 @@ Requires:       python3-barbican = %{version}-%{release}
 This package contains the Barbican test files.
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %setup -q -n barbican-%{upstream_version}
 
 rm -rf barbican.egg-info
@@ -296,6 +312,9 @@ exit 0
 
 
 %changelog
+* Wed Oct 14 2020 Joel Capitao <jcapitao@redhat.com> 11.0.0-0.2.0rc1
+- Enable sources tarball validation using GPG signature.
+
 * Mon Sep 28 2020 RDO <dev@lists.rdoproject.org> 11.0.0-0.1.0rc1
 - Update to 11.0.0.0rc1
 
