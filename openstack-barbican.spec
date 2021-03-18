@@ -72,19 +72,19 @@ Requires: python3-alembic >= 0.8.10
 Requires: python3-cryptography >= 2.1
 Requires: python3-eventlet >= 0.18.2
 Requires: python3-jsonschema
-Requires: python3-keystonemiddleware >= 4.17.0
+Requires: python3-keystonemiddleware >= 5.1.0
 Requires: python3-ldap3
 Requires: python3-oslo-config >= 2:6.4.0
-Requires: python3-oslo-context >= 2.19.2
+Requires: python3-oslo-context >= 2.22.0
 Requires: python3-oslo-db >= 4.27.0
 Requires: python3-oslo-i18n >= 3.15.3
-Requires: python3-oslo-log >= 3.36.0
+Requires: python3-oslo-log >= 4.3.0
 Requires: python3-oslo-messaging >= 5.29.0
 Requires: python3-oslo-middleware >= 3.31.0
-Requires: python3-oslo-policy >= 1.33.0
+Requires: python3-oslo-policy >= 3.6.0
 Requires: python3-oslo-serialization >= 2.18.0
 Requires: python3-oslo-service >= 1.24.0
-Requires: python3-oslo-upgradecheck >= 0.1.1
+Requires: python3-oslo-upgradecheck >= 1.3.0
 Requires: python3-oslo-utils >= 3.33.0
 Requires: python3-pbr >= 2.0.0
 Requires: python3-pecan >= 1.0.0
