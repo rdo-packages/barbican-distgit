@@ -305,5 +305,4 @@ exit 0
 %postun -n openstack-barbican-keystone-listener
 %systemd_postun_with_restart openstack-barbican-keystone-listender.service
 
-
 %changelog
