@@ -19,6 +19,7 @@ Source1: openstack-barbican-api.service
 Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
+Source5: openstack-barbican-retry.service
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz.asc
@@ -134,6 +135,16 @@ Requires: python3-barbican
 This package contains scripts to start a barbican keystone
 listener daemon.
 
+
+%package -n openstack-barbican-retry
+Summary: Barbican Retry daemon
+Requires: python3-barbican
+
+%description -n openstack-barbican-retry
+This package contains scripts to start a barbican retry
+daemon.
+
+
 %package -n openstack-barbican-common
 Summary: Common Files for the API and worker packages
 Requires: python3-barbican
@@ -141,6 +152,7 @@ Requires: python3-barbican
 %description -n openstack-barbican-common
 This packge contains files that are common to the API and
 worker packages.
+
 
 %package -n python3-barbican-tests
 Summary:        Barbican tests
@@ -202,6 +214,7 @@ rm -f %{buildroot}%{_bindir}/barbican.sh
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/openstack-barbican-api.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-barbican-worker.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-barbican-keystone-listener.service
+install -p -D -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/openstack-barbican-retry.service
 
 # install log rotation
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
@@ -274,6 +287,10 @@ exit 0
 %attr(0755,root,root) %{_bindir}/barbican-keystone-listener
 %{_unitdir}/openstack-barbican-keystone-listener.service
 
+%files -n openstack-barbican-retry
+%attr(0755,root,root) %{_bindir}/barbican-retry
+%{_unitdir}/openstack-barbican-retry.service
+
 %post -n openstack-barbican-api
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-api.service
@@ -289,6 +306,11 @@ exit 0
 %systemd_post openstack-barbican-keystone-listener.service
 /bin/systemctl daemon-reload
 
+%post -n openstack-barbican-retry
+# ensure that init system recognizes the service
+%systemd_post openstack-barbican-retry.service
+/bin/systemctl daemon-reload
+
 %preun -n openstack-barbican-api
 %systemd_preun openstack-barbican-api.service
 
@@ -297,6 +319,9 @@ exit 0
 
 %preun -n openstack-barbican-keystone-listener
 %systemd_preun openstack-barbican-keystone-listener.service
+
+%preun -n openstack-barbican-retry
+%systemd_preun openstack-barbican-retry.service
 
 %postun -n openstack-barbican-api
 %systemd_postun_with_restart openstack-barbican-api.service
@@ -307,5 +332,7 @@ exit 0
 %postun -n openstack-barbican-keystone-listener
 %systemd_postun_with_restart openstack-barbican-keystone-listender.service
 
+%postun -n openstack-barbican-retry
+%systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
