@@ -1,18 +1,23 @@
+%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: XXX
-Release: XXX
+Version: 14.0.0
+Release: 0.1%{?milestone}%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
 License: ASL 2.0
 Url:     https://github.com/openstack/barbican
 Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
+
+#
+# patches_base=14.0.0.0rc1
+#
 
 # TODO: Submit PR to add these to upstream
 Source1: openstack-barbican-api.service
@@ -307,3 +312,6 @@ exit 0
 
 
 %changelog
+* Mon Mar 21 2022 RDO <dev@lists.rdoproject.org> 14.0.0-0.1.0rc1
+- Update to 14.0.0.0rc1
+
