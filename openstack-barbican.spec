@@ -234,6 +234,7 @@ exit 0
 %{_bindir}/barbican-status
 %{_bindir}/pkcs11-kek-rewrap
 %{_bindir}/pkcs11-key-generation
+%config(noreplace) %{_sysconfdir}/barbican/barbican.conf
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
 # good in the long run anyway, so this is likely the best package for it
@@ -253,7 +254,6 @@ exit 0
 %files -n openstack-barbican-api
 %config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
-%config(noreplace) %{_sysconfdir}/barbican/barbican.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-functional.conf
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
