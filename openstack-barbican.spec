@@ -74,6 +74,7 @@ Requires: python3-eventlet >= 0.18.2
 Requires: python3-jsonschema
 Requires: python3-keystonemiddleware >= 5.1.0
 Requires: python3-ldap3
+Requires: python3-microversion-parse >= 0.2.1
 Requires: python3-oslo-config >= 2:6.4.0
 Requires: python3-oslo-context >= 2.22.0
 Requires: python3-oslo-db >= 4.27.0
