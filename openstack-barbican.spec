@@ -308,3 +308,4 @@ exit 0
 
 
 %changelog
+# REMOVEME: error caused by commit https://opendev.org/openstack/barbican/commit/37edca24d01443371719540a45864a1d9aebb1a2
