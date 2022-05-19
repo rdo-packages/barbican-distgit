@@ -43,6 +43,7 @@ BuildRequires: python3-oslo-policy
 BuildRequires: python3-oslo-db
 BuildRequires: python3-oslo-upgradecheck
 BuildRequires: python3-keystonemiddleware
+BuildRequires: python3-castellan
 BuildRequires: openstack-macros
 
 Requires(pre): shadow-utils
