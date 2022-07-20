@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02b0c9e_a8ac2bad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2022-07-20T16:56:52Z",
+      "side": 1,
+      "message": "for some reason, this is a private bz\ntl;dr sqlalchemy 1.4 was introduced as a dep of new component being added to RHEL9 https://github.com/keylime/keylime/blob/master/requirements.txt\n1.4 is actually not required there but was already in epel9 where it needs to be removed once it hits next rhel9 minor update\nhttps://bugzilla.redhat.com/show_bug.cgi?id\u003d2098498",
+      "revId": "53a998db89a158aef3915c9e9fb7296e93b11b2e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "00bd0dbe_4a7253af",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-07-20T12:32:01Z",
       "side": 1,
       "message": "Thanks Alfredo.",
+      "revId": "53a998db89a158aef3915c9e9fb7296e93b11b2e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd3c2ee_2ca375cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2022-07-20T16:56:52Z",
+      "side": 1,
+      "message": "IIUC this is actually sqlalchemy 1.4 incompatibility in oslo.db, fixed in Xena, W backport proposed: https://review.opendev.org/c/openstack/oslo.db/+/850550",
       "revId": "53a998db89a158aef3915c9e9fb7296e93b11b2e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
