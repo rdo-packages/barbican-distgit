@@ -90,7 +90,7 @@ Requires: python3-oslo-utils >= 3.33.0
 Requires: python3-pbr >= 2.0.0
 Requires: python3-pecan >= 1.0.0
 Requires: python3-six >= 1.10.0
-Requires: python3-sqlalchemy >= 1.0.10
+Requires: python3-sqlalchemy < 1.4.0
 Requires: python3-stevedore >= 1.20.0
 Requires: python3-webob >= 1.7.1
 Requires: python3-pyOpenSSL >= 17.1.0
