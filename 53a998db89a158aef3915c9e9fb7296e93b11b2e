@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00bd0dbe_4a7253af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 739
+      },
+      "writtenOn": "2022-07-20T12:32:01Z",
+      "side": 1,
+      "message": "Thanks Alfredo.",
+      "revId": "53a998db89a158aef3915c9e9fb7296e93b11b2e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
