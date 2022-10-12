@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 13.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -305,10 +305,13 @@ exit 0
 %systemd_postun_with_restart openstack-barbican-worker.service
 
 %postun -n openstack-barbican-keystone-listener
-%systemd_postun_with_restart openstack-barbican-keystone-listender.service
+%systemd_postun_with_restart openstack-barbican-keystone-listener.service
 
 
 %changelog
+* Tue Oct 18 2022 Joel Capitao <jcapitao@redhat.com> 13.0.1-3
+- Fix typo in keystone-listener service
+
 * Thu Oct 13 2022 Tobias Urdin <tobias.urdin@binero.com> 13.0.1-2
 - Make sure common and python lib dependencies is upgraded
 
