@@ -330,7 +330,7 @@ exit 0
 %systemd_postun_with_restart openstack-barbican-worker.service
 
 %postun -n openstack-barbican-keystone-listener
-%systemd_postun_with_restart openstack-barbican-keystone-listender.service
+%systemd_postun_with_restart openstack-barbican-keystone-listener.service
 
 %postun -n openstack-barbican-retry
 %systemd_postun_with_restart openstack-barbican-retry.service
