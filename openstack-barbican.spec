@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 14.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -310,6 +310,9 @@ exit 0
 
 
 %changelog
+* Thu Oct 13 2022 Tobias Urdin <tobias.urdin@binero.com> 14.0.1-2
+- Make sure common and python lib dependencies is upgraded
+
 * Thu Oct 06 2022 RDO <dev@lists.rdoproject.org> 14.0.1-1
 - Update to 14.0.1
 
