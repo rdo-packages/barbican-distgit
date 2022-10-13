@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 12.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -109,7 +109,7 @@ worker(openstack-barbican-worker) packages.
 
 %package -n openstack-barbican-api
 Summary: Barbican Key Manager API daemon
-Requires: openstack-barbican-common
+Requires: openstack-barbican-common = %{version}-%{release}
 Requires: python3-gunicorn
 
 %description -n openstack-barbican-api
@@ -118,7 +118,7 @@ This package contains scripts to start a barbican api instance.
 
 %package -n openstack-barbican-worker
 Summary: Barbican Key Manager worker daemon
-Requires: openstack-barbican-common
+Requires: openstack-barbican-common = %{version}-%{release}
 
 %description -n openstack-barbican-worker
 This package contains scripts to start a barbican worker
@@ -127,7 +127,7 @@ on a worker node.
 
 %package -n openstack-barbican-keystone-listener
 Summary: Barbican Keystone Listener daemon
-Requires: python3-barbican
+Requires: python3-barbican = %{version}-%{release}
 
 %description -n openstack-barbican-keystone-listener
 This package contains scripts to start a barbican keystone
@@ -135,7 +135,7 @@ listener daemon.
 
 %package -n openstack-barbican-common
 Summary: Common Files for the API and worker packages
-Requires: python3-barbican
+Requires: python3-barbican = %{version}-%{release}
 
 %description -n openstack-barbican-common
 This packge contains files that are common to the API and
@@ -308,6 +308,9 @@ exit 0
 
 
 %changelog
+* Thu Oct 13 2022 Joel Capitao <jcapitao@redhat.com> 12.0.1-2
+- Make sure common and python lib dependencies is upgraded
+
 * Thu Aug 18 2022 RDO <dev@lists.rdoproject.org> 12.0.1-1
 - Update to 12.0.1
 
