@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 15.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -337,6 +337,9 @@ exit 0
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+* Thu Oct 13 2022 Tobias Urdin <tobias.urdin@binero.com> 15.0.0-2
+- Make sure common and python lib dependencies is upgraded
+
 * Wed Oct 05 2022 RDO <dev@lists.rdoproject.org> 15.0.0-1
 - Update to 15.0.0
 
