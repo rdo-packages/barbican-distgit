@@ -111,7 +111,7 @@ worker(openstack-barbican-worker) packages.
 
 %package -n openstack-barbican-api
 Summary: Barbican Key Manager API daemon
-Requires: openstack-barbican-common
+Requires: openstack-barbican-common = %{version}-%{release}
 Requires: python3-gunicorn
 
 %description -n openstack-barbican-api
@@ -120,7 +120,7 @@ This package contains scripts to start a barbican api instance.
 
 %package -n openstack-barbican-worker
 Summary: Barbican Key Manager worker daemon
-Requires: openstack-barbican-common
+Requires: openstack-barbican-common = %{version}-%{release}
 
 %description -n openstack-barbican-worker
 This package contains scripts to start a barbican worker
@@ -129,7 +129,7 @@ on a worker node.
 
 %package -n openstack-barbican-keystone-listener
 Summary: Barbican Keystone Listener daemon
-Requires: python3-barbican
+Requires: python3-barbican = %{version}-%{release}
 
 %description -n openstack-barbican-keystone-listener
 This package contains scripts to start a barbican keystone
@@ -138,7 +138,7 @@ listener daemon.
 
 %package -n openstack-barbican-retry
 Summary: Barbican Retry daemon
-Requires: python3-barbican
+Requires: python3-barbican = %{version}-%{release}
 
 %description -n openstack-barbican-retry
 This package contains scripts to start a barbican retry
@@ -147,7 +147,7 @@ daemon.
 
 %package -n openstack-barbican-common
 Summary: Common Files for the API and worker packages
-Requires: python3-barbican
+Requires: python3-barbican = %{version}-%{release}
 
 %description -n openstack-barbican-common
 This packge contains files that are common to the API and
