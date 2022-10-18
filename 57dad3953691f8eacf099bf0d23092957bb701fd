@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0179fd81_4855e58a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 91
+      },
+      "writtenOn": "2022-10-18T18:05:46Z",
+      "side": 1,
+      "message": "i should probably be removed from these reviews as i have not worked on openstack in over 5 years now. \n\nwith that said though, this change lgtm",
+      "revId": "57dad3953691f8eacf099bf0d23092957bb701fd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
