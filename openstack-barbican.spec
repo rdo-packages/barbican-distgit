@@ -1,12 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: 15.0.0
-Release: 3%{?dist}
+Version: 15.0.1
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -337,6 +337,9 @@ exit 0
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+* Thu Dec 01 2022 RDO <dev@lists.rdoproject.org> 15.0.1-1
+- Update to 15.0.1
+
 * Tue Oct 18 2022 Joel Capitao <jcapitao@redhat.com> 15.0.0-3
 - Fix typo in keystone-listener service
 
