@@ -1,0 +1,9 @@
+Code-Review+1: Tobias Urdin <tobias.urdin@gmail.com>
+Code-Review+2: Joel Capitao <jcapitao@redhat.com>
+Workflow+1: Joel Capitao <jcapitao@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 05 Dec 2022 08:45:10 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/barbican-distgit/+/46320
+Project: openstack/barbican-distgit
+Branch: refs/heads/xena-rdo
