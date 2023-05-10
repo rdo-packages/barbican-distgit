@@ -193,8 +193,8 @@ mkdir -p %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic_migrat
 install -m 644 barbican/api/app.wsgi %{buildroot}/%{python3_sitelib}/barbican/api/app.wsgi
 install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic.ini
 install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic_migrations/versions/
-install -m 644 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
-install -m 644 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
+install -m 640 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
+install -m 640 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
 
