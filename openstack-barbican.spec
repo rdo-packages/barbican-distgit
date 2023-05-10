@@ -193,8 +193,8 @@ mkdir -p %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic_migrat
 install -m 644 barbican/api/app.wsgi %{buildroot}/%{python3_sitelib}/barbican/api/app.wsgi
 install -m 644 barbican/model/migration/alembic.ini %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic.ini
 install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroot}/%{python3_sitelib}/barbican/model/migration/alembic_migrations/versions/
-install -m 644 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
-install -m 644 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
+install -m 640 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
+install -m 640 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
 install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
 
@@ -248,7 +248,7 @@ exit 0
 %{_bindir}/barbican-status
 %{_bindir}/pkcs11-kek-rewrap
 %{_bindir}/pkcs11-key-generation
-%config(noreplace) %{_sysconfdir}/barbican/barbican.conf
+%config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/barbican.conf
 # Move the logrotate file to the shared package because everything currently uses
 # the /var/log/barbican-api.log file, and really a single logrotate is probably
 # good in the long run anyway, so this is likely the best package for it
@@ -266,9 +266,9 @@ exit 0
 %{python3_sitelib}/barbican/tests
 
 %files -n openstack-barbican-api
-%config(noreplace) %{_sysconfdir}/barbican/api_audit_map.conf
+%config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
-%config(noreplace) %{_sysconfdir}/barbican/barbican-functional.conf
+%config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/barbican-functional.conf
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
