@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408a98e7_a8d8803f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-05-11T07:40:49Z",
+      "side": 1,
+      "message": "See my note about config files ownership.\n\nAlso, note that this will not fix the package update case because of the %config(noreplace). I\u0027m not sure if you want/need to cover the config file owners and mode change via rpm update.",
+      "revId": "9e643528740d72b5be852c35bfc5bfa433be42ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd51f6d4_fd83fae0",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-05-11T07:40:49Z",
+      "side": 1,
+      "message": "You are not setting ownership to barbican user, so, after this patch permissions for config files are root:root 640, and barbican user can not even read the files so it fails (you can see the weirdo-dlrn-master-puppet-scenario002-centos9 check job result):\n\n[root@aa51bc2a3c48 barbican]# ls -l\ntotal 76\n-rw-r-----. 1 root root   674 May 10 15:44 api_audit_map.conf\n-rw-r--r--. 1 root root  2441 May 10 15:44 barbican-api-paste.ini\n-rw-r-----. 1 root root  2805 May 10 15:44 barbican-functional.conf\n-rw-r-----. 1 root root 56361 May 10 15:44 barbican.conf\n-rw-r--r--. 1 root root   220 May 10 15:44 gunicorn-config.py\ndrwxr-xr-x. 2 root root  4096 May 11 07:20 vassals\n\nTo implemente 640 mode you also need to set config files ownership to barbican:barbican or root:barbican, if config files changes are done with root user, which is the more usual permissions in rdo packages, see:\n\nhttps://github.com/rdo-packages/cinder-distgit/blob/rpm-master/openstack-cinder.spec#L458-L461",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 12
+      },
+      "revId": "9e643528740d72b5be852c35bfc5bfa433be42ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee37aa8_e86ab946",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-05-11T07:40:49Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 67
+      },
+      "revId": "9e643528740d72b5be852c35bfc5bfa433be42ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
