@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a55085af_f6ade071",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 593
+      },
+      "writtenOn": "2023-05-11T08:06:58Z",
+      "side": 1,
+      "message": "Thanks for the review, I added %config(noreplace) %attr(0640, root, %{service}) to the relevant configs, do you know if that will also work in the update case?",
+      "parentUuid": "cd51f6d4_fd83fae0",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 12
+      },
+      "revId": "9e643528740d72b5be852c35bfc5bfa433be42ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dee37aa8_e86ab946",
         "filename": "openstack-barbican.spec",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2023-05-11T07:40:49Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 67
+      },
+      "revId": "9e643528740d72b5be852c35bfc5bfa433be42ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a7a404_e0334e55",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 593
+      },
+      "writtenOn": "2023-05-11T08:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dee37aa8_e86ab946",
       "range": {
         "startLine": 269,
         "startChar": 0,
