@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 16.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -351,6 +351,9 @@ fi
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+* Mon May 15 2023 Grzegorz Grasza <xek@redhat.com> 16.0.0-2
+- Fix barbican config files permissions
+
 * Fri Mar 31 2023 RDO <dev@lists.rdoproject.org> 16.0.0-1
 - Update to 16.0.0
 
