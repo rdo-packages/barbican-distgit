@@ -6,7 +6,7 @@
 
 Name:    openstack-barbican
 Version: 11.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -318,6 +318,9 @@ fi
 
 
 %changelog
+* Mon May 15 2023 Grzegorz Grasza <xek@redhat.com> 11.0.0-2
+- Fix barbican config files permissions
+
 * Wed Oct 14 2020 RDO <dev@lists.rdoproject.org> 11.0.0-1
 - Update to 11.0.0
 
