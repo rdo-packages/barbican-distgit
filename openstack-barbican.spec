@@ -3,6 +3,8 @@
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order sphinx openstackdocstheme
 
 Name:    openstack-barbican
 Version: XXX
@@ -10,7 +12,7 @@ Release: XXX
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
-License: ASL 2.0
+License: Apache-2.0
 Url:     https://github.com/openstack/barbican
 Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 
@@ -33,31 +35,16 @@ BuildArch: noarch
 BuildRequires:  /usr/bin/gpgv2
 %endif
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-oslo-config >= 2:6.4.0
-BuildRequires: python3-oslo-messaging >= 5.29.0
-BuildRequires: python3-pbr >= 2.0.0
-BuildRequires: python3-pecan
-BuildRequires: python3-alembic
-BuildRequires: python3-pykmip
-BuildRequires: python3-oslo-policy
-BuildRequires: python3-oslo-db
-BuildRequires: python3-oslo-upgradecheck
-BuildRequires: python3-keystonemiddleware
-BuildRequires: python3-castellan
+BuildRequires: pyproject-rpm-macros
 BuildRequires: openstack-macros
 
 Requires(pre): shadow-utils
-Requires: python3-barbican
 BuildRequires: systemd
-%if 0%{?rhel} && 0%{?rhel} < 8
-%{?systemd_requires}
-%else
-%{?systemd_ordering} # does not exist on EL7
-%endif
 
-Requires: openstack-barbican-api
-Requires: openstack-barbican-worker
+%{?systemd_ordering}
+
+Requires: openstack-barbican-api = %{version}-%{release}
+Requires: openstack-barbican-worker = %{version}-%{release}
 
 %description -n openstack-barbican
 Openstack Barbican provides a ReST API for securely storing,
@@ -69,39 +56,6 @@ installs both the API and worker packages.
 
 %package -n python3-barbican
 Summary: All python modules of Barbican
-%{?python_provide:%python_provide python3-barbican}
-Requires: python3-alembic >= 0.8.10
-Requires: python3-cryptography >= 2.1
-Requires: python3-eventlet >= 0.18.2
-Requires: python3-jsonschema >= 3.2.0
-Requires: python3-keystonemiddleware >= 9.5.0
-Requires: python3-ldap3 >= 1.0.2
-Requires: python3-microversion-parse >= 0.2.1
-Requires: python3-oslo-config >= 2:6.4.0
-Requires: python3-oslo-context >= 2.22.0
-Requires: python3-oslo-db >= 4.27.0
-Requires: python3-oslo-i18n >= 3.15.3
-Requires: python3-oslo-log >= 4.3.0
-Requires: python3-oslo-messaging >= 14.1.0
-Requires: python3-oslo-middleware >= 3.31.0
-Requires: python3-oslo-policy >= 3.6.0
-Requires: python3-oslo-serialization >= 2.18.0
-Requires: python3-oslo-service >= 1.24.0
-Requires: python3-oslo-upgradecheck >= 1.3.0
-Requires: python3-oslo-utils >= 3.33.0
-Requires: python3-pbr >= 2.0.0
-Requires: python3-pecan >= 1.0.0
-Requires: python3-sqlalchemy >= 1.0.10
-Requires: python3-stevedore >= 1.20.0
-Requires: python3-webob >= 1.7.1
-Requires: python3-pyOpenSSL >= 17.1.0
-Requires: python3-castellan >=  1.2.1
-Requires: python3-oslo-versionedobjects >= 1.31.2
-
-Requires: python3-cffi >= 1.7.0
-Requires: python3-paste >= 2.0.2
-Requires: python3-paste-deploy >= 1.5.0
-
 %description -n python3-barbican
 This package contains the barbican python library.
 It is required by both the API(openstack-barbican) and
@@ -155,7 +109,6 @@ worker packages.
 
 %package -n python3-barbican-tests
 Summary:        Barbican tests
-%{?python_provide:%python_provide python3-barbican-tests}
 Requires:       python3-barbican = %{version}-%{release}
 
 %description -n python3-barbican-tests
@@ -168,21 +121,37 @@ This package contains the Barbican test files.
 %endif
 %setup -q -n barbican-%{upstream_version}
 
-rm -rf barbican.egg-info
 
 # make doc build compatible with python-oslo-sphinx RPM
 sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
 
-# Remove the requirements file so that pbr hooks don't add it
-# to distutils requiers_dist config
-%py_req_cleanup
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+rm -f barbican/tests/test_hacking.py
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+%generate_buildrequires
+%pyproject_buildrequires -t -e %{default_toxenv}
 
 %build
-%{py3_build}
-PYTHONPATH=. oslo-config-generator-3 --config-file=etc/oslo-config-generator/barbican.conf
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+# Generate config file
+PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslo-config-generator-3 --config-file=etc/oslo-config-generator/barbican.conf
+
 mkdir -p %{buildroot}%{_sysconfdir}/barbican
 mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
@@ -235,6 +204,9 @@ getent passwd nfast >/dev/null || \
     usermod --append --groups nfast barbican
 exit 0
 
+%check
+%tox -e %{default_toxenv}
+
 %files -n openstack-barbican
 %license LICENSE
 
@@ -258,7 +230,7 @@ exit 0
 %files -n python3-barbican
 %license LICENSE
 %{python3_sitelib}/barbican
-%{python3_sitelib}/barbican-*-py?.?.egg-info
+%{python3_sitelib}/barbican*.dist-info
 %exclude %{python3_sitelib}/barbican/tests
 
 %files -n python3-barbican-tests
