@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035db014_a3445b19",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-07-27T14:03:37Z",
+      "side": 1,
+      "message": "I think we can just keep this line",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 20
+      },
+      "revId": "fbb367e960678153289039e6608ad325fc7be547",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
