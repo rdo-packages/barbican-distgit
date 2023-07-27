@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be71a880_91758f1e",
+        "filename": "openstack-barbican.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-07-27T15:30:46Z",
+      "side": 1,
+      "message": "it\u0027s not needed anymore but we can live with it",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 53
+      },
+      "revId": "66efa37ff4d53acce2d3fee725f905667aa761f3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
