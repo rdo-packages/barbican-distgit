@@ -321,3 +321,4 @@ fi
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+
