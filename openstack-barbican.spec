@@ -1,4 +1,3 @@
-%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
 %global service barbican
@@ -9,7 +8,7 @@
 
 Name:    openstack-barbican
 Version: 18.0.0
-Release: 0.1%{?milestone}%{?dist}
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -17,8 +16,6 @@ License: Apache-2.0
 Url:     https://github.com/openstack/barbican
 Source0: https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 
-#
-# patches_base=18.0.0.0rc1
 #
 
 # TODO: Submit PR to add these to upstream
@@ -326,6 +323,9 @@ fi
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+* Wed Apr 03 2024 RDO <dev@lists.rdoproject.org> 18.0.0-1
+- Update to 18.0.0
+
 * Fri Mar 15 2024 RDO <dev@lists.rdoproject.org> 18.0.0-0.1.0rc1
 - Update to 18.0.0.0rc1
 
