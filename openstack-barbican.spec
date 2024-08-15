@@ -153,7 +153,6 @@ done
 PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslo-config-generator-3 --config-file=etc/oslo-config-generator/barbican.conf
 
 mkdir -p %{buildroot}%{_sysconfdir}/barbican
-mkdir -p %{buildroot}%{_sysconfdir}/barbican/vassals
 mkdir -p %{buildroot}%{_localstatedir}/l{ib,og}/barbican
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_localstatedir}/run/barbican
@@ -165,7 +164,6 @@ install -m 644 barbican/model/migration/alembic_migrations/versions/* %{buildroo
 install -m 640 etc/barbican/*.conf %{buildroot}%{_sysconfdir}/barbican/
 install -m 640 etc/barbican/barbican.conf.sample %{buildroot}%{_sysconfdir}/barbican/barbican.conf
 install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/barbican/gunicorn-config.py
-install -m 644 etc/barbican/vassals/* %{buildroot}%{_sysconfdir}/barbican/vassals/
 
 # Move files installed under /usr/etc
 mv %{buildroot}/usr/etc/barbican/* %{buildroot}%{_sysconfdir}/barbican/
@@ -244,7 +242,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
-%config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
+%exclude %{_sysconfdir}/barbican/vassals/barbican-api.ini
 %{_unitdir}/openstack-barbican-api.service
 # FIXME: it'd be nice to have a wsgi config file sample in the package
 %{_bindir}/barbican-wsgi-api
