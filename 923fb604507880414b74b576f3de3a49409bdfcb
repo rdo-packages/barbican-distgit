@@ -16,6 +16,23 @@
       "message": "wsgi is provided as part of RDO itself",
       "revId": "923fb604507880414b74b576f3de3a49409bdfcb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c8b25e4_bf30a281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 682
+      },
+      "writtenOn": "2024-08-20T14:00:03Z",
+      "side": 1,
+      "message": "Yeah I noticed uwsgi is provided by RDO to be used by openstack-ansible, then it\u0027d be better to keep the file now...",
+      "revId": "923fb604507880414b74b576f3de3a49409bdfcb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
