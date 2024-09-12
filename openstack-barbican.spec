@@ -1,12 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
 %global service barbican
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:    openstack-barbican
-Version: 16.0.0
-Release: 2%{?dist}
+Version: 16.0.1
+Release: 1%{?dist}
 Summary: OpenStack Barbican Key Manager
 
 Group:   Applications/System
@@ -351,6 +351,9 @@ fi
 %systemd_postun_with_restart openstack-barbican-retry.service
 
 %changelog
+* Thu Sep 12 2024 RDO <dev@lists.rdoproject.org> 16.0.1-1
+- Update to 16.0.1
+
 * Mon May 15 2023 Grzegorz Grasza <xek@redhat.com> 16.0.0-2
 - Fix barbican config files permissions
 
