@@ -121,7 +121,6 @@ This package contains the Barbican test files.
 %endif
 %setup -q -n barbican-%{upstream_version}
 
-
 # make doc build compatible with python-oslo-sphinx RPM
 sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
 
@@ -131,6 +130,7 @@ sed -i /^minversion.*/d tox.ini
 sed -i /^requires.*virtualenv.*/d tox.ini
 
 rm -f barbican/tests/test_hacking.py
+rm -f etc/barbican/barbican-functional.conf
 
 # Exclude some bad-known BRs
 for pkg in %{excluded_brs}; do
@@ -240,7 +240,6 @@ exit 0
 %files -n openstack-barbican-api
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
-%config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/barbican-functional.conf
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
 %exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
@@ -274,8 +273,6 @@ fi
 if [ $1 == 2 ] ; then
 chown root:barbican %{_sysconfdir}/barbican/api_audit_map.conf
 chmod 640 %{_sysconfdir}/barbican/api_audit_map.conf
-chown root:barbican %{_sysconfdir}/barbican/barbican-functional.conf
-chmod 640 %{_sysconfdir}/barbican/barbican-functional.conf
 fi
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-api.service
