@@ -279,22 +279,18 @@ chmod 640 %{_sysconfdir}/barbican/barbican-functional.conf
 fi
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-api.service
-/bin/systemctl daemon-reload
 
 %post -n openstack-barbican-worker
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-worker.service
-/bin/systemctl daemon-reload
 
 %post -n openstack-barbican-keystone-listener
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-keystone-listener.service
-/bin/systemctl daemon-reload
 
 %post -n openstack-barbican-retry
 # ensure that init system recognizes the service
 %systemd_post openstack-barbican-retry.service
-/bin/systemctl daemon-reload
 
 %preun -n openstack-barbican-api
 %systemd_preun openstack-barbican-api.service
