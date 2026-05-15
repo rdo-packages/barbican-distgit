@@ -316,3 +316,4 @@ fi
 
 %changelog
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/barbican/commit/0e157b441894bf8c5d75bbbf258fe0732598172d
