@@ -22,6 +22,7 @@ Source2: openstack-barbican-worker.service
 Source3: openstack-barbican-keystone-listener.service
 Source4: gunicorn-config.py
 Source5: openstack-barbican-retry.service
+Source6: barbican-wsgi-api
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz.asc
@@ -185,6 +186,9 @@ install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/openstack-barbican-worke
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/openstack-barbican-keystone-listener.service
 install -p -D -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/openstack-barbican-retry.service
 
+# WSGI API compatibility wrapper (upstream dropped wsgi_scripts entry)
+install -p -D -m 755 %{SOURCE6} %{buildroot}%{_bindir}/barbican-wsgi-api
+
 # install log rotation
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 install -m644 etc/logrotate.d/barbican-api %{buildroot}%{_sysconfdir}/logrotate.d/barbican-api
@@ -242,11 +246,8 @@ exit 0
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
-%exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
-%exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
 %{_unitdir}/openstack-barbican-api.service
-# FIXME: it'd be nice to have a wsgi config file sample in the package
 %{_bindir}/barbican-wsgi-api
 
 %files -n openstack-barbican-worker
