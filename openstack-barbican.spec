@@ -242,12 +242,8 @@ exit 0
 %config(noreplace) %attr(0640, root, %{service}) %{_sysconfdir}/barbican/api_audit_map.conf
 %config(noreplace) %{_sysconfdir}/barbican/barbican-api-paste.ini
 %config(noreplace) %{_sysconfdir}/barbican/gunicorn-config.py
-%exclude %{_sysconfdir}/barbican/gunicorn-config.pyc
-%exclude %{_sysconfdir}/barbican/gunicorn-config.pyo
 %config(noreplace) %{_sysconfdir}/barbican/vassals/barbican-api.ini
 %{_unitdir}/openstack-barbican-api.service
-# FIXME: it'd be nice to have a wsgi config file sample in the package
-%{_bindir}/barbican-wsgi-api
 
 %files -n openstack-barbican-worker
 %defattr(-,root,root)
